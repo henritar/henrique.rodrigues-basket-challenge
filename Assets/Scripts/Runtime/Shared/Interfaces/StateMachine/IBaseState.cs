@@ -6,6 +6,7 @@ namespace Assets.Scripts.Runtime.Shared.Interfaces.StateMachine
     {
         TStateEnum State { get; }
 
+        void SetStateManager(IStatesManager<TStateEnum> stateManager);
         void EnterState();
         void ExitState();
         void Update();

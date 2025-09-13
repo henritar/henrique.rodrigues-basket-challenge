@@ -1,15 +1,14 @@
 using Assets.Scripts.Runtime.Enums;
-using Assets.Scripts.Runtime.Shared.Interfaces.StateMachine;
+using Assets.Scripts.Runtime.Shared;
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.Runtime.Managers.States.MainGame
 {
-    public class MainMenuGameState : IGameState
+    public class MainMenuGameState : BaseGameState
     {
-        public GameStatesEnum State => GameStatesEnum.MainMenu;
+        protected override GameStatesEnum GameState => GameStatesEnum.MainMenu;
 
-        private readonly IStatesManager<GameStatesEnum> _stateManager;
         private readonly IMainMenuPresenter _mainMenuPresenter;
 
         public MainMenuGameState(IMainMenuPresenter mainMenuPresenter)
@@ -17,23 +16,23 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
             _mainMenuPresenter = mainMenuPresenter;
         }
 
-        public void EnterState()
+        protected override void OnEnterState()
         {
             Debug.Log("Entering MainMenu Game State");
             _mainMenuPresenter.ShowUI(true);
         }
 
-        public void ExitState()
+        protected override void OnExitState()
         {
             Debug.Log("Exiting MainMenu Game State");
             _mainMenuPresenter.ShowUI(false);
         }
 
-        public void Update()
+        protected override void OnUpdate()
         {
         }
-        
-        public void FixedUpdate()
+
+        protected override void OnFixedUpdate()
         {
         }
     }

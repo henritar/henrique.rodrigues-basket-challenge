@@ -1,36 +1,29 @@
 ﻿using Assets.Scripts.Runtime.Enums;
-using Assets.Scripts.Runtime.Shared.Interfaces.StateMachine;
+using Assets.Scripts.Runtime.Shared;
 using UnityEngine;
 
 namespace Assets.Scripts.Runtime.Managers.States.MainGame
 {
-    public class PlayingGameState : IGameState
+    public class PlayingGameState : BaseGameState
     {
-        public GameStatesEnum State => GameStatesEnum.Playing;
+        protected override GameStatesEnum GameState => GameStatesEnum.Playing;
 
-        private IStatesManager<GameStatesEnum> _stateManager;
-
-        public PlayingGameState()
-        {
-        }
-
-        public void EnterState()
+        protected override void OnEnterState()
         {
             Debug.Log("Entering Playing Game State");
         }
 
-        public void ExitState()
+        protected override void OnExitState()
         {
             Debug.Log("Exiting Playing Game State");
         }
 
-        public void Update()
+        protected override void OnUpdate()
         {
         }
 
-        public void FixedUpdate()
+        protected override void OnFixedUpdate()
         {
         }
-        
     }
 }

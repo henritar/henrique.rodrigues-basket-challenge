@@ -1,28 +1,28 @@
 using Assets.Scripts.Runtime.Enums;
-using Assets.Scripts.Runtime.Shared.Interfaces.StateMachine;
+using Assets.Scripts.Runtime.Shared;
 using UnityEngine;
 
 namespace Assets.Scripts.Runtime.Managers.States.MainGame
 {
-    public class NoneGameState : IGameState
+    public class NoneGameState : BaseGameState
     {
-        public GameStatesEnum State => GameStatesEnum.None;
+        protected override GameStatesEnum GameState => GameStatesEnum.None;
 
-        public void EnterState()
+        protected override void OnEnterState()
         {
             Debug.Log("Entering None Game State");
         }
 
-        public void ExitState()
+        protected override void OnExitState()
         {
             Debug.Log("Exiting None Game State");
         }
 
-        public void Update()
+        protected override void OnUpdate()
         {
         }
 
-        public void FixedUpdate()
+        protected override void OnFixedUpdate()
         {
         }
     }

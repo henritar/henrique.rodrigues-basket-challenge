@@ -1,5 +1,6 @@
 using Assets.Scripts.Runtime.Shared.Interfaces.StateMachine;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Scripts.Runtime.Shared
@@ -14,6 +15,17 @@ namespace Assets.Scripts.Runtime.Shared
 
         protected IBaseState<TStateEnum>[] _states;
         protected IBaseState<TStateEnum> stateHandler;
+
+        public BaseStateManager(IEnumerable<IBaseState<TStateEnum>> states)
+        {
+            _states = states.ToArray();
+            foreach (var state in _states)
+            {
+                state.SetStateManager(this);
+            }
+
+            _isInitialized = true;
+        }
 
         public void ChangeState(TStateEnum state)
         {
