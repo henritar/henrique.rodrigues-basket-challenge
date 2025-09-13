@@ -15,7 +15,7 @@ namespace Assets.Scripts.Runtime.Bootstrap
 
         public void PostStart()
         {
-            Debug.Log("Game Entry Point Start called.");
+            Debug.Log("Game Entry Point post start called.");
         }
     }
 }

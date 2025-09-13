@@ -1,5 +1,9 @@
+using Assets.Scripts.Runtime.Gameplay.Interactables;
 using Assets.Scripts.Runtime.Managers;
 using Assets.Scripts.Runtime.Managers.States.MainGame;
+using Assets.Scripts.Runtime.Shared.EventBus;
+using Assets.Scripts.Runtime.Shared.Interfaces;
+using Assets.Scripts.Runtime.Shared.Interfaces.Interactables;
 using Assets.Scripts.Runtime.Shared.Interfaces.StateMachine;
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
 using Assets.Scripts.Runtime.UI.MainMenu;
@@ -15,13 +19,20 @@ namespace Assets.Scripts.Runtime.Bootstrap
         {
             // Managers
                 builder.Register<GameManager>(Lifetime.Singleton).AsImplementedInterfaces();
+                builder.Register<GoalManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GameStatesManager>(Lifetime.Singleton).As<IGameStateManager>();
+
+            // Event Bus
+                builder.Register<EventBus>(Lifetime.Singleton).As<IEventBus>();
 
             // Game States
                 builder.Register<NoneGameState>(Lifetime.Singleton).As<IGameState>();
                 builder.Register<MainMenuGameState>(Lifetime.Singleton).As<IGameState>();
                 builder.Register<PlayingGameState>(Lifetime.Singleton).As<IGameState>();
                 builder.Register<RewardGameState>(Lifetime.Singleton).As<IGameState>();
+
+            //Interactables
+                builder.RegisterComponentInHierarchy<BasketColliderDetector>().As<IBasketDetector>();
 
             // UI
                 builder.RegisterComponentInHierarchy<MainMenuView>().As<IMainMenuView>();
