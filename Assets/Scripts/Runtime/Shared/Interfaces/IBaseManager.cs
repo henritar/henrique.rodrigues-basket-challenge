@@ -2,6 +2,6 @@
 {
     public interface IBaseManager
     {
-        public bool IsInitialized { get; }
+        bool IsInitialized { get; }
     }
 }

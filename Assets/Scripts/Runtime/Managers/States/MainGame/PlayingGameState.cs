@@ -10,9 +10,8 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
 
         private IStatesManager<GameStatesEnum> _stateManager;
 
-        public PlayingGameState(IStatesManager<GameStatesEnum> stateManager)
+        public PlayingGameState()
         {
-            _stateManager = stateManager;
         }
 
         public void EnterState()

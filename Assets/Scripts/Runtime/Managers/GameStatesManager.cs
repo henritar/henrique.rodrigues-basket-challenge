@@ -1,21 +1,16 @@
 using Assets.Scripts.Runtime.Enums;
-using Assets.Scripts.Runtime.Managers.States.MainGame;
 using Assets.Scripts.Runtime.Shared;
 using Assets.Scripts.Runtime.Shared.Interfaces.StateMachine;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Scripts.Runtime.Managers
 {
     public class GameStatesManager : BaseStateManager<GameStatesEnum>, IGameStateManager
     {
-        public GameStatesManager()
+        public GameStatesManager(IEnumerable<IGameState> gameStates)
         {
-            _states = new IGameState[]
-            {
-                new NoneGameState(),
-                new MainMenuGameState(this),
-                new PlayingGameState(this),
-                new RewardGameState(this),
-            };
+            _states = gameStates.ToArray();
 
             _isInitialized = true;
         }

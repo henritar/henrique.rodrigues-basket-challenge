@@ -2,6 +2,6 @@
 {
     public interface IGameManager 
     {
-        public void Initialize();
+        void Initialize();
     }
 }
