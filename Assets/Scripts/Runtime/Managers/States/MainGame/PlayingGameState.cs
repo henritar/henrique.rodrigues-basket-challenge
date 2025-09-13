@@ -11,6 +11,7 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
         protected override void OnEnterState()
         {
             Debug.Log("Entering Playing Game State");
+            _stateManager.ChangeState(GameStatesEnum.Reward);
         }
 
         protected override void OnExitState()
