@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Runtime.Shared;
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
+using UnityEngine.Events;
 
 namespace Assets.Scripts.Runtime.UI.MainMenu
 {
@@ -22,8 +23,13 @@ namespace Assets.Scripts.Runtime.UI.MainMenu
             }
 
             Model.IsUIVisible = show;
-        } 
-        
+        }
+
+        public void SetStartGameAction(UnityAction action)
+        {
+            View.SetStartButtonListener(action);
+        }
+
         protected override void Initialize()
         {
            View.Hide();
@@ -31,12 +37,25 @@ namespace Assets.Scripts.Runtime.UI.MainMenu
 
         protected override void SubscribeToEvents()
         {
-            View.SetStartButtonListener(() => {});
-            View.SetQuitButtonListener(() => {});
+            SetQuitGameAction();
         }
 
         protected override void UnsubscribeFromEvents()
         {
+        }
+
+        private void SetQuitGameAction()
+        {
+            View.SetQuitButtonListener(QuitGame);
+        }
+
+        private void QuitGame()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
         }
     }
 }

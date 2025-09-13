@@ -14,6 +14,10 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
         public MainMenuGameState(IMainMenuPresenter mainMenuPresenter)
         {
             _mainMenuPresenter = mainMenuPresenter;
+            _mainMenuPresenter.SetStartGameAction(() =>
+            {
+                _stateManager.ChangeState(GameStatesEnum.Playing);
+            });
         }
 
         protected override void OnEnterState()
