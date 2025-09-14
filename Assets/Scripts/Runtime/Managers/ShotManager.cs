@@ -51,12 +51,15 @@ namespace Assets.Scripts.Runtime.Managers
 
         public Vector3 CalculateVelocity(Vector3 startPos, ShotResultEnum targetResult)
         {
-            Vector3 targetPos = GetTargetPosition(targetResult);
+            Vector3 targetPos = GetTargetPosition(startPos, targetResult);
             return CalculateTrajectoryVelocity(startPos, targetPos);
         }
 
-        private Vector3 GetTargetPosition(ShotResultEnum result)
+        private Vector3 GetTargetPosition(Vector3 startPos, ShotResultEnum result)
         {
+            Vector3 displacement = _basketPoint.Position - startPos;
+            Vector3 shotDirection = displacement.normalized;
+
             switch (result)
             {
                 case ShotResultEnum.PerfectShot:
@@ -73,6 +76,10 @@ namespace Assets.Scripts.Runtime.Managers
                     Vector3 rimTarget = _basketPoint.Position + rimOffset;
 
                     return rimTarget;
+                case ShotResultEnum.MissWeak:
+                        return _basketPoint.Position - shotDirection * GameConstants.MissWeakDistance;
+                case ShotResultEnum.MissStrong:
+                        return _basketPoint.Position + shotDirection * GameConstants.MissStrongDistance;
                 default:
                     return _backboardPoint.Position + Random.insideUnitSphere * 2f;
             }

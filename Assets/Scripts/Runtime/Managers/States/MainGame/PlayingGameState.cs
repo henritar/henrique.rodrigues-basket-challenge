@@ -23,7 +23,7 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
         protected override void OnEnterState()
         {
             Debug.Log("Entering Playing Game State");
-            _eventBus.Publish(new ShotEvent(_ballPresenter, ShotResultEnum.RingTouch));
+            _eventBus.Publish(new ShotEvent(_ballPresenter, ShotResultEnum.BackboardBasket));
         }
 
         protected override void OnExitState()

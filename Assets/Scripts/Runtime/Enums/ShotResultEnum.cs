@@ -5,6 +5,7 @@
         PerfectShot,   
         BackboardBasket,
         RingTouch,      
-        Miss           
+        MissWeak,
+        MissStrong,
     }
 }
