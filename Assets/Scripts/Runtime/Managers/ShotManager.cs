@@ -66,22 +66,23 @@ namespace Assets.Scripts.Runtime.Managers
                     return _basketPoint.Position;
 
                 case ShotResultEnum.BackboardBasket:
-                    return _backboardPoint.Position + Vector3.down * 0.2f;
+                    return _backboardPoint.Position;
 
                 case ShotResultEnum.RingTouch:
-                    Vector2 dir2D = Random.insideUnitCircle.normalized;
+                    Vector3 lateral = Vector3.Cross(Vector3.up, shotDirection).normalized;
 
-                    Vector3 rimOffset = new Vector3(dir2D.x, 0, dir2D.y) * GameConstants.BasketRadius;
+                    float backFactor = Mathf.Clamp01(Mathf.Abs(displacement.z) / GameConstants.ClampFactor);
 
-                    Vector3 rimTarget = _basketPoint.Position + rimOffset;
+                    Vector3 mixDir = Vector3.Lerp(shotDirection, lateral * GameConstants.RandomEvenOdd, backFactor).normalized;
 
-                    return rimTarget;
+                    Vector3 rimOffset = mixDir * GameConstants.BasketRadius;
+                    return _basketPoint.Position + rimOffset;
                 case ShotResultEnum.MissWeak:
                         return _basketPoint.Position - shotDirection * GameConstants.MissWeakDistance;
                 case ShotResultEnum.MissStrong:
                         return _basketPoint.Position + shotDirection * GameConstants.MissStrongDistance;
                 default:
-                    return _backboardPoint.Position + Random.insideUnitSphere * 2f;
+                    return _backboardPoint.Position + Random.insideUnitSphere;
             }
         }
 
@@ -91,7 +92,7 @@ namespace Assets.Scripts.Runtime.Managers
             Vector3 displacementXZ = new Vector3(displacement.x, 0, displacement.z);
 
             float horizontalDistance = displacementXZ.magnitude;
-            float timeToTarget = Mathf.Clamp(horizontalDistance / 6f, 1.0f, 2.3f);
+            float timeToTarget = Mathf.Clamp(horizontalDistance / GameConstants.ClampFactor, GameConstants.MinShotTimeToTarget, GameConstants.MaxShotTimeToTarget);
 
             Vector3 velocityXZ = displacementXZ / timeToTarget;
             float velocityY = (displacement.y - 0.5f * Physics.gravity.y * timeToTarget * timeToTarget) / timeToTarget;
