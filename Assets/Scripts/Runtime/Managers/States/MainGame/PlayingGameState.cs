@@ -6,7 +6,6 @@ using Assets.Scripts.Runtime.Shared.Interfaces;
 using Assets.Scripts.Runtime.Shared.Interfaces.InputSystem.Gameplay;
 using Assets.Scripts.Runtime.Shared.Interfaces.Interactables;
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
-using Assets.Scripts.Runtime.UI.MainMenu;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UniRx;

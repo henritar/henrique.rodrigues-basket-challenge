@@ -15,7 +15,6 @@ namespace Assets.Scripts.Runtime.Gameplay.Ball
             {
                 if (_startPosition == value) return;
                 _startPosition = value;
-                RaiseModelChanged();
             }
         }
     }

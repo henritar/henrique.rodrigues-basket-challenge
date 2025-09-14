@@ -1,12 +1,19 @@
 ﻿using Assets.Scripts.Runtime.Shared;
+using Assets.Scripts.Runtime.Shared.EventBus.Events;
+using Assets.Scripts.Runtime.Shared.Interfaces;
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
+using UniRx;
 
 namespace Assets.Scripts.Runtime.UI.GameplayUI
 {
     public class GameplayUIPresenter : BasePresenter<IGameplayUIModel, IGameplayUIView>, IGameplayUIPresenter
     {
-        public GameplayUIPresenter(IGameplayUIModel model, IGameplayUIView view) : base(model, view)
+        private readonly IEventBus _eventBus;
+        private CompositeDisposable _disposables = new CompositeDisposable();
+
+        public GameplayUIPresenter(IGameplayUIModel model, IGameplayUIView view, IEventBus eventBus) : base(model, view)
         {
+            _eventBus = eventBus;
         }
 
         public void ShowUI(bool show)
@@ -21,17 +28,40 @@ namespace Assets.Scripts.Runtime.UI.GameplayUI
                     break;
             }
 
-            Model.IsUIVisible = show;
+            Model.SetUIVisible(show);
+        }
+
+        protected override void OnInitialize()
+        {
+            _disposables = new CompositeDisposable();
+            
         }
 
         protected override void SubscribeToEvents()
         {
-            throw new System.NotImplementedException();
+            _eventBus.OnEvent<GoalEvent>()
+                .Subscribe(OnGoalScored)
+                .AddTo(_disposables);
+
+            Model.CurrentPoints
+                .Subscribe(points => View.UpdateScore(points))
+                .AddTo(_disposables);
         }
 
         protected override void UnsubscribeFromEvents()
         {
             throw new System.NotImplementedException();
+        }
+
+        private void OnGoalScored(GoalEvent goalEvent)
+        {
+            Model.UpdatePoints(goalEvent.Points);
+        }
+
+        protected override void Cleanup()
+        {
+            _disposables.Dispose();
+            _disposables = null;
         }
     }
 }

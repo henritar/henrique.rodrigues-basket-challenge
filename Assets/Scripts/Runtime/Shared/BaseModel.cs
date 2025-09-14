@@ -6,16 +6,6 @@ namespace Assets.Scripts.Runtime.Shared
     {
         private bool _isDisposed = false;
 
-        protected void RaiseModelChanged()
-        {
-            if (_isDisposed)
-            {
-                return;
-            }
-
-            OnModelChangedCallback();
-        }
-
         public void Dispose()
         {
             if (_isDisposed)
@@ -27,8 +17,6 @@ namespace Assets.Scripts.Runtime.Shared
 
             _isDisposed = true;
         }
-
-        protected virtual void OnModelChangedCallback() { }
         protected virtual void Dispose(bool disposing) { }
     }
 }

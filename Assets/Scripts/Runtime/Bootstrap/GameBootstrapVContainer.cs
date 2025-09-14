@@ -11,6 +11,7 @@ using Assets.Scripts.Runtime.Shared.Interfaces.InputSystem.Gameplay;
 using Assets.Scripts.Runtime.Shared.Interfaces.Interactables;
 using Assets.Scripts.Runtime.Shared.Interfaces.StateMachine;
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
+using Assets.Scripts.Runtime.UI.GameplayUI;
 using Assets.Scripts.Runtime.UI.MainMenu;
 using Assets.Scripts.Runtime.UI.RewardMenu;
 using UnityEngine;
@@ -59,12 +60,16 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.Register<MainMenuModel>(Lifetime.Singleton).As<IMainMenuModel>();
                 builder.Register<MainMenuPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.RegisterComponentInHierarchy<RewardMenuView>().As<IRewardMenuView>();
+                builder.RegisterComponentInHierarchy<RewardMenuView>().As<IRewardMenuView>();
                 builder.Register<RewardMenuModel>(Lifetime.Singleton).As<IRewardMenuModel>();
                 builder.Register<RewardMenuPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
+                builder.RegisterComponentInHierarchy<GameplayUIView>().As<IGameplayUIView>();
+                builder.Register<GameplayUIModel>(Lifetime.Singleton).As<IGameplayUIModel>();
+                builder.Register<GameplayUIPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+
             // Input Handlers
-                builder.Register<Gameplay_PlayingInputHandler>(Lifetime.Singleton).As<IPlayingInputHandler>();
+            builder.Register<Gameplay_PlayingInputHandler>(Lifetime.Singleton).As<IPlayingInputHandler>();
 
             // Entry Point
                 builder.Register<GameEntryPoint>(Lifetime.Singleton);

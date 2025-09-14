@@ -22,7 +22,7 @@ namespace Assets.Scripts.Runtime.UI.RewardMenu
                     break;
             }
 
-            Model.IsUIVisible = show;
+            Model.SetUIVisible(show);
         }
 
         public void SetMainMenuAction(UnityAction action)

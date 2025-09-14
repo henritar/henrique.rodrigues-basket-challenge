@@ -28,7 +28,7 @@ namespace Assets.Scripts.Runtime.UI.MainMenu
                     break;
             }
 
-            Model.IsUIVisible = show;
+            Model.SetUIVisible(show);
         }
 
         public void SetStartGameAction(UnityAction action)

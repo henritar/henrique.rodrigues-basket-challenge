@@ -9,7 +9,7 @@ namespace Assets.Scripts.Runtime.Gameplay.Ball
     public class BallPresenter : BasePresenter<IBallModel, IBallView>, IBallPresenter
     {
         private readonly Subject<Unit> _onBallReset = new();
-        private readonly CompositeDisposable _disposables = new CompositeDisposable();
+        private CompositeDisposable _disposables = new CompositeDisposable();
         public Vector3 BallPosition => View.Transform.position;
         public IObservable<Unit> OnBallReset => _onBallReset;
 
@@ -43,6 +43,7 @@ namespace Assets.Scripts.Runtime.Gameplay.Ball
 
         protected override void OnInitialize()
         {
+            _disposables = new CompositeDisposable();
             Model.StartPosition = View.Transform.position;
         }
 
@@ -58,6 +59,7 @@ namespace Assets.Scripts.Runtime.Gameplay.Ball
         protected override void Cleanup()
         {
             _disposables.Dispose();
+            _disposables = null;
         }
     }
 }
