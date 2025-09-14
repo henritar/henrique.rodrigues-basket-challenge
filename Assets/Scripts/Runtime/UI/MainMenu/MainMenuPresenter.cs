@@ -2,6 +2,12 @@
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
 using UnityEngine.Events;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#else
+using UnityEngine;
+#endif
+
 namespace Assets.Scripts.Runtime.UI.MainMenu
 {
     public class MainMenuPresenter : BasePresenter<IMainMenuModel, IMainMenuView>, IMainMenuPresenter
@@ -52,7 +58,7 @@ namespace Assets.Scripts.Runtime.UI.MainMenu
         private void QuitGame()
         {
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+            EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif

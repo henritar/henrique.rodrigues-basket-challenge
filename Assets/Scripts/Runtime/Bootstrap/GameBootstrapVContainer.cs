@@ -29,7 +29,7 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.RegisterInstance(_gameplayInputReader).As<IGameplayInputReader>().AsSelf();
 
             // Managers
-            builder.Register<GameManager>(Lifetime.Singleton).AsImplementedInterfaces();
+                builder.Register<GameManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GoalManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<ShotManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GameplayInputManager>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -67,7 +67,7 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.Register<Gameplay_PlayingInputHandler>(Lifetime.Singleton).As<IPlayingInputHandler>();
 
             // Entry Point
-            builder.Register<GameEntryPoint>(Lifetime.Singleton);
+                builder.Register<GameEntryPoint>(Lifetime.Singleton);
                 builder.RegisterEntryPoint<GameEntryPoint>();
         }
     }

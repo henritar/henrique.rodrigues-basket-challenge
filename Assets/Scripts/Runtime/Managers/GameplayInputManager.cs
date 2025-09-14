@@ -4,6 +4,11 @@ using Assets.Scripts.Runtime.Shared.Interfaces.InputSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+#if UNITY_EDITOR
+using UnityEditor;
+#elif UNITY_IOS || UNITY_ANDROID
+using UnityEngine.InputSystem;
+#endif
 
 namespace Assets.Scripts.Runtime.Managers
 {
@@ -95,16 +100,17 @@ namespace Assets.Scripts.Runtime.Managers
         {
 #if UNITY_EDITOR || UNITY_STANDALONE
             return EventSystem.current.IsPointerOverGameObject();
+
 #elif UNITY_IOS || UNITY_ANDROID
-            // Verifica se há toques ativos
-            if (Touchscreen.current != null && Touchscreen.current.touches.Count > 0)
-            {
-                // Checa se o primeiro toque está sobre UI
-                return EventSystem.current.IsPointerOverGameObject(Touchscreen.current.touches[0].touchId.ReadValue());
-            }
-            return false;
+    if (Touchscreen.current != null && Touchscreen.current.touches.Count > 0)
+    {
+        var touchId = Touchscreen.current.touches[0].touchId.ReadValue();
+        return EventSystem.current.IsPointerOverGameObject(touchId);
+    }
+    return false;
+
 #else
-            return EventSystem.current.IsPointerOverGameObject();
+    return EventSystem.current.IsPointerOverGameObject();
 #endif
         }
 

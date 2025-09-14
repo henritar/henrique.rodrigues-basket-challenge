@@ -46,7 +46,7 @@ namespace Assets.Scripts.Runtime.ScriptableObjects.InputSystem
 
         public void OnPrepareShoot(InputAction.CallbackContext context)
         {
-            if (context.started) // só quando começar a segurar
+            if (context.started) 
             {
                 _isAiming = true;
                 ClickHolded?.Invoke();
@@ -55,7 +55,7 @@ namespace Assets.Scripts.Runtime.ScriptableObjects.InputSystem
 
         public void OnShoot(InputAction.CallbackContext context)
         {
-            if (context.canceled && _isAiming) // só ao soltar depois de segurar
+            if (context.canceled && _isAiming)
             {
                 _isAiming = false;
                 ClickRelease?.Invoke();
