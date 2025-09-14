@@ -1,17 +1,17 @@
 ﻿using Assets.Scripts.Runtime.Enums;
-using Assets.Scripts.Runtime.Gameplay.Ball;
 using Assets.Scripts.Runtime.Shared.Interfaces;
+using Assets.Scripts.Runtime.Shared.Interfaces.Interactables;
 
 namespace Assets.Scripts.Runtime.Shared.EventBus.Events
 {
     public class ShotEvent : IGameEvent
     {
-        public BallPresenter Ball { get; private set; }
+        public IBallPresenter BallPresenter { get; private set; }
         public ShotResultEnum ShotResult { get; private set; }
 
-        public ShotEvent(BallPresenter ball, ShotResultEnum shotResult)
+        public ShotEvent(IBallPresenter ball, ShotResultEnum shotResult)
         {
-            Ball = ball;
+            BallPresenter = ball;
             ShotResult = shotResult;
         }
     }

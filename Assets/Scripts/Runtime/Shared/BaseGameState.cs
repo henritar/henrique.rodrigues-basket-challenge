@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Runtime.Enums;
+using Assets.Scripts.Runtime.Shared.Interfaces;
 using Assets.Scripts.Runtime.Shared.Interfaces.StateMachine;
 
 namespace Assets.Scripts.Runtime.Shared

@@ -1,3 +1,4 @@
+using Assets.Scripts.Runtime.Gameplay.Ball;
 using Assets.Scripts.Runtime.Gameplay.Interactables;
 using Assets.Scripts.Runtime.Managers;
 using Assets.Scripts.Runtime.Managers.States.MainGame;
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Runtime.Bootstrap
             // Managers
                 builder.Register<GameManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GoalManager>(Lifetime.Singleton).AsImplementedInterfaces();
+                builder.Register<ShotManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GameStatesManager>(Lifetime.Singleton).As<IGameStateManager>();
 
             // Event Bus
@@ -33,6 +35,13 @@ namespace Assets.Scripts.Runtime.Bootstrap
 
             //Interactables
                 builder.RegisterComponentInHierarchy<BasketColliderDetector>().As<IBasketDetector>();
+                builder.RegisterComponentInHierarchy<BasketPoint>().As<IBasketPoint>();
+                builder.RegisterComponentInHierarchy<BackboardPoint>().As<IBackboardPoint>();
+
+            // Ball
+                builder.RegisterComponentInHierarchy<BallView>().As<IBallView>();
+                builder.Register<BallModel>(Lifetime.Singleton).As<IBallModel>();
+                builder.Register<BallPresenter>(Lifetime.Singleton).As<IBallPresenter>();
 
             // UI
                 builder.RegisterComponentInHierarchy<MainMenuView>().As<IMainMenuView>();
