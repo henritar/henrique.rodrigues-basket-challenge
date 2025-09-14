@@ -32,7 +32,7 @@ namespace Assets.Scripts.Runtime.Managers
         private void InitializeGame()
         {
             Debug.Log("Initializing game...");
-            _gameStatesManager.ChangeState(GameStatesEnum.MainMenu);
+            _gameStatesManager.ChangeState(GameStatesEnum.Playing);
         }
 
         protected override void OnUpdate()
