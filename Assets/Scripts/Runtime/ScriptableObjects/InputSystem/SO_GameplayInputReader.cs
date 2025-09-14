@@ -27,6 +27,7 @@ namespace Assets.Scripts.Runtime.ScriptableObjects.InputSystem
                 inputActions = new InputSystem_Actions();
                 inputActions.Gameplay.SetCallbacks(this);
             }
+
             inputActions.Gameplay.Enable();
         }
 

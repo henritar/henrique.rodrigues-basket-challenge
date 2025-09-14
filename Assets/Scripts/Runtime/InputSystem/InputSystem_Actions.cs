@@ -78,11 +78,33 @@ public partial class @InputSystem_Actions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""e946e9c1-6c93-470e-a751-06b5f5510a83"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Touchscreen"",
+                    ""action"": ""PrepareShoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""70d3b0bc-9476-4b10-8661-39a631aecf1d"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse"",
+                    ""action"": ""ScreenPos"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55f1ef1a-3c7a-485e-9041-aeb77a3213a7"",
+                    ""path"": ""<Touchscreen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touchscreen"",
                     ""action"": ""ScreenPos"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -100,11 +122,33 @@ public partial class @InputSystem_Actions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""58b2ad2c-a199-47d7-84f8-d61dd95514f9"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": ""Touchscreen"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""f2cba42a-ab8d-4172-aaea-1f0e852cadf5"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse"",
+                    ""action"": ""PlainClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6232a9d6-5a5e-4a08-b3b0-dc0f0874b659"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touchscreen"",
                     ""action"": ""PlainClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -119,6 +163,17 @@ public partial class @InputSystem_Actions : IInputActionCollection2, IDisposable
             ""devices"": [
                 {
                     ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Touchscreen"",
+            ""bindingGroup"": ""Touchscreen"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Touchscreen>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -251,6 +306,15 @@ public partial class @InputSystem_Actions : IInputActionCollection2, IDisposable
         {
             if (m_MouseSchemeIndex == -1) m_MouseSchemeIndex = asset.FindControlSchemeIndex("Mouse");
             return asset.controlSchemes[m_MouseSchemeIndex];
+        }
+    }
+    private int m_TouchscreenSchemeIndex = -1;
+    public InputControlScheme TouchscreenScheme
+    {
+        get
+        {
+            if (m_TouchscreenSchemeIndex == -1) m_TouchscreenSchemeIndex = asset.FindControlSchemeIndex("Touchscreen");
+            return asset.controlSchemes[m_TouchscreenSchemeIndex];
         }
     }
     public interface IGameplayActions
