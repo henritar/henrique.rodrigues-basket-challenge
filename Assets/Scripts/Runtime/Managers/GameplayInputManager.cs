@@ -4,6 +4,7 @@ using Assets.Scripts.Runtime.Shared.Interfaces.InputSystem;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #elif UNITY_IOS || UNITY_ANDROID
@@ -16,6 +17,8 @@ namespace Assets.Scripts.Runtime.Managers
     {
         private IGameplayInputReader _gameplayInputReader;
         private IGameplayInputHandler _currentInputHandler;
+
+        public Vector2 PointerPosition => _gameplayInputReader.PointerPosition;
 
         public GameplayInputManager(IGameplayInputReader inputReader)
         {
@@ -73,7 +76,7 @@ namespace Assets.Scripts.Runtime.Managers
 
         public void HandleReleaseClick()
         {
-            _currentInputHandler?.HandleReleaseClick();
+            HandleReleaseClickAsync().Forget();
         }
 
         private async UniTask HandleHoldClickAsync()
@@ -84,6 +87,13 @@ namespace Assets.Scripts.Runtime.Managers
                 return;
 
             _currentInputHandler?.HandleHoldClick();
+        }
+
+        private async UniTask HandleReleaseClickAsync()
+        {
+            await UniTask.NextFrame();
+
+            _currentInputHandler?.HandleReleaseClick();
         }
 
         private async UniTask HandlePlainClickAsync()

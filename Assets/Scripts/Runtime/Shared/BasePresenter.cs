@@ -1,10 +1,9 @@
 ﻿using Assets.Scripts.Runtime.Shared.Interfaces.MVP;
-using System.Threading;
-using UnityEngine;
+using VContainer.Unity;
 
 namespace Assets.Scripts.Runtime.Shared
 {
-    public abstract class BasePresenter<TModel, TView> : IBasePresenter where TModel : IBaseModel where TView : IBaseView
+    public abstract class BasePresenter<TModel, TView> : IInitializable, IBasePresenter where TModel : IBaseModel where TView : IBaseView
     {
         protected TModel Model { get; private set; }
         protected TView View { get; private set; }
@@ -18,12 +17,12 @@ namespace Assets.Scripts.Runtime.Shared
             this.View = view;
         }
 
-        public void Activate()
+        public void Initialize()
         {
             if (_isActive || _isDisposed) return;
 
             SubscribeToEvents();
-            Initialize();
+            OnInitialize();
 
             _isActive = true;
         }
@@ -44,7 +43,7 @@ namespace Assets.Scripts.Runtime.Shared
             _isDisposed = true;
         }
 
-        protected virtual void Initialize() { }
+        protected virtual void OnInitialize() { }
 
         protected virtual void Cleanup() { }
 

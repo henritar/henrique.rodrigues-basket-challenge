@@ -1,15 +1,22 @@
 ﻿using Assets.Scripts.Runtime.Shared;
 using Assets.Scripts.Runtime.Shared.Interfaces.Interactables;
+using System;
+using UniRx;
 using UnityEngine;
 
 namespace Assets.Scripts.Runtime.Gameplay.Ball
 {
     public class BallPresenter : BasePresenter<IBallModel, IBallView>, IBallPresenter
     {
+        private readonly Subject<Unit> _onBallReset = new();
+        private readonly CompositeDisposable _disposables = new CompositeDisposable();
         public Vector3 BallPosition => View.Transform.position;
+        public IObservable<Unit> OnBallReset => _onBallReset;
 
         public BallPresenter(IBallModel model, IBallView view) : base(model, view)
         {
+           View.ObserveEveryValueChanged(v => v.Transform.position.y).DistinctUntilChanged()
+                .Where(y => y < 0.5f).Subscribe(_ => ResetBallPosition()).AddTo(_disposables);
         }
 
         public void SetBallVelocity(Vector3 velocity)
@@ -30,9 +37,11 @@ namespace Assets.Scripts.Runtime.Gameplay.Ball
             rb.useGravity = false;
             rb.isKinematic = true;
             View.Transform.position = Model.StartPosition;
+
+            _onBallReset.OnNext(Unit.Default);
         }
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
             Model.StartPosition = View.Transform.position;
         }
@@ -44,6 +53,11 @@ namespace Assets.Scripts.Runtime.Gameplay.Ball
         protected override void UnsubscribeFromEvents()
         {
 
+        }
+
+        protected override void Cleanup()
+        {
+            _disposables.Dispose();
         }
     }
 }

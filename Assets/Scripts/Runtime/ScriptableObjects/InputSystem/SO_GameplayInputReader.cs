@@ -15,8 +15,6 @@ namespace Assets.Scripts.Runtime.ScriptableObjects.InputSystem
 
         public InputSystem_Actions inputActions;
 
-        private bool _isAiming;
-
         private Vector2 _lastPointerPosition;
         public Vector2 PointerPosition => _lastPointerPosition;
 
@@ -48,16 +46,14 @@ namespace Assets.Scripts.Runtime.ScriptableObjects.InputSystem
         {
             if (context.started) 
             {
-                _isAiming = true;
                 ClickHolded?.Invoke();
             }
         }
 
         public void OnShoot(InputAction.CallbackContext context)
         {
-            if (context.canceled && _isAiming)
+            if (context.canceled)
             {
-                _isAiming = false;
                 ClickRelease?.Invoke();
             }
         }

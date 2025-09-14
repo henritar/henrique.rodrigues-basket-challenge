@@ -52,16 +52,16 @@ namespace Assets.Scripts.Runtime.Bootstrap
             // Ball
                 builder.RegisterComponentInHierarchy<BallView>().As<IBallView>();
                 builder.Register<BallModel>(Lifetime.Singleton).As<IBallModel>();
-                builder.Register<BallPresenter>(Lifetime.Singleton).As<IBallPresenter>();
+                builder.Register<BallPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // UI
                 builder.RegisterComponentInHierarchy<MainMenuView>().As<IMainMenuView>();
                 builder.Register<MainMenuModel>(Lifetime.Singleton).As<IMainMenuModel>();
-                builder.Register<MainMenuPresenter>(Lifetime.Singleton).As<IMainMenuPresenter>();
+                builder.Register<MainMenuPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
-                builder.RegisterComponentInHierarchy<RewardMenuView>().As<IRewardMenuView>();
+            builder.RegisterComponentInHierarchy<RewardMenuView>().As<IRewardMenuView>();
                 builder.Register<RewardMenuModel>(Lifetime.Singleton).As<IRewardMenuModel>();
-                builder.Register<RewardMenuPresenter>(Lifetime.Singleton).As<IRewardMenuPresenter>();
+                builder.Register<RewardMenuPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Input Handlers
                 builder.Register<Gameplay_PlayingInputHandler>(Lifetime.Singleton).As<IPlayingInputHandler>();

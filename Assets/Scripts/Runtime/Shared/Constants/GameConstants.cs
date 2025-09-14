@@ -12,5 +12,8 @@ namespace Assets.Scripts.Runtime.Shared.Constants
         public readonly static float MaxShotTimeToTarget = 2.0f;
         public readonly static float ClampFactor = 6.0f;
         public readonly static int RandomEvenOdd = (Random.value < 0.5f ? -1 : 1);
+        public readonly static float MaxSwipeDistance = 200f; 
+        public readonly static float MinSwipeSpeed = 100f;
+        public readonly static float SwipeTimeWindow = 1f;
     }
 }

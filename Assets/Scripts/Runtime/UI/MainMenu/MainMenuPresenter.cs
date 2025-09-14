@@ -36,9 +36,8 @@ namespace Assets.Scripts.Runtime.UI.MainMenu
             View.SetStartButtonListener(action);
         }
 
-        protected override void Initialize()
+        protected override void OnInitialize()
         {
-           View.Hide();
         }
 
         protected override void SubscribeToEvents()

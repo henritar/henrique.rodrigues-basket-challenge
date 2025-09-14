@@ -13,12 +13,10 @@ namespace Assets.Scripts.Runtime.InputSystem.Gameplay
         public event Action OnReleaseClick;
         public override void HandleHoldClick()
         { 
-            Debug.Log("Hold Clicked in Playing State");
             OnHoldClick?.Invoke();
         }
         public override void HandleReleaseClick()
         {
-            Debug.Log("Released Clicked in Playing State");
             OnReleaseClick?.Invoke();
         }
     }
