@@ -5,6 +5,8 @@ using Assets.Scripts.Runtime.Shared.EventBus.Events;
 using Assets.Scripts.Runtime.Shared.Interfaces;
 using Assets.Scripts.Runtime.Shared.Interfaces.InputSystem.Gameplay;
 using Assets.Scripts.Runtime.Shared.Interfaces.Interactables;
+using Assets.Scripts.Runtime.Shared.Interfaces.UI;
+using Assets.Scripts.Runtime.UI.MainMenu;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UniRx;
@@ -18,6 +20,7 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
         private readonly IBallPresenter _ballPresenter;
         private readonly IPlayingInputHandler _inputHandler;
         private readonly IGameplayInputManager _inputManager;
+        private readonly IGameplayUIPresenter _gameplayUIPresenter;
 
         private Vector2 _startPosition;
         private Vector2 _currentPosition;
@@ -31,21 +34,23 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
 
         protected override GameStatesEnum GameState => GameStatesEnum.Playing;
 
-        public PlayingGameState(IEventBus eventBus, IBallPresenter ballPresenter, IPlayingInputHandler inputHandler, IGameplayInputManager inputManager)
+        public PlayingGameState(IEventBus eventBus, IBallPresenter ballPresenter, IPlayingInputHandler inputHandler,
+            IGameplayInputManager inputManager, IGameplayUIPresenter gameplayUIPresenter)
         {
             _eventBus = eventBus;
             _ballPresenter = ballPresenter;
             _inputHandler = inputHandler;
             _inputManager = inputManager;
+            _gameplayUIPresenter = gameplayUIPresenter;
         }
 
         protected override void OnEnterState()
         {
             Debug.Log("Entering Playing Game State");
+            _gameplayUIPresenter.ShowUI(true);
             _inputManager.SetCurrentInputHandler(_inputHandler);
             _inputHandler.OnHoldClick += StartSwipeTracking;
             _inputHandler.OnReleaseClick += EndSwipeTracking;
-
             _disposables = new CompositeDisposable();
             _ballPresenter.OnBallReset.Subscribe(_ => ResetSwipeTracking()).AddTo(_disposables);
         }
@@ -57,6 +62,7 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
             _inputManager.SetCurrentInputHandler(null);
             _disposables.Dispose();
             _disposables = null;
+            _gameplayUIPresenter.ShowUI(false);
             Debug.Log("Exiting Playing Game State");
         }
 
