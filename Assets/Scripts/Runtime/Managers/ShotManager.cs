@@ -71,9 +71,9 @@ namespace Assets.Scripts.Runtime.Managers
                 case ShotResultEnum.RingTouch:
                     Vector3 lateral = Vector3.Cross(Vector3.up, shotDirection).normalized;
 
-                    float backFactor = Mathf.Clamp01(Mathf.Abs(displacement.z) / GameConstants.ClampFactor);
+                    float backFactor = Mathf.Clamp01(Mathf.Abs(displacement.z) / GameConstants.BackClampFactor);
 
-                    Vector3 mixDir = Vector3.Lerp(shotDirection, lateral * GameConstants.RandomEvenOdd, backFactor).normalized;
+                    Vector3 mixDir = Vector3.Lerp(shotDirection, lateral * GameConstants.GetRandomEvenOdd(), backFactor).normalized;
 
                     Vector3 rimOffset = mixDir * GameConstants.BasketRadius;
                     return _basketPoint.Position + rimOffset;
@@ -92,7 +92,7 @@ namespace Assets.Scripts.Runtime.Managers
             Vector3 displacementXZ = new Vector3(displacement.x, 0, displacement.z);
 
             float horizontalDistance = displacementXZ.magnitude;
-            float timeToTarget = Mathf.Clamp(horizontalDistance / GameConstants.ClampFactor, GameConstants.MinShotTimeToTarget, GameConstants.MaxShotTimeToTarget);
+            float timeToTarget = Mathf.Clamp(horizontalDistance / GameConstants.TimeClampFactor, GameConstants.MinShotTimeToTarget, GameConstants.MaxShotTimeToTarget);
 
             Vector3 velocityXZ = displacementXZ / timeToTarget;
             float velocityY = (displacement.y - 0.5f * Physics.gravity.y * timeToTarget * timeToTarget) / timeToTarget;
