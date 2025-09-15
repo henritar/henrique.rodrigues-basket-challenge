@@ -18,16 +18,6 @@ namespace Assets.Scripts.Runtime.UI.GameplayUI
 
         public void ShowUI(bool show)
         {
-            switch (show)
-            {
-                case true:
-                    View.Show();
-                    break;
-                case false:
-                    View.Hide();
-                    break;
-            }
-
             Model.SetUIVisible(show);
         }
 
@@ -43,6 +33,9 @@ namespace Assets.Scripts.Runtime.UI.GameplayUI
                 .Subscribe(OnUpdateScore)
                 .AddTo(_disposables);
 
+
+            Model.IsUIVisible.Subscribe(OnUIVisibleChanged).AddTo(_disposables);
+
             Model.CurrentPoints
                 .Subscribe(points => View.UpdateScore(points))
                 .AddTo(_disposables);
@@ -55,6 +48,19 @@ namespace Assets.Scripts.Runtime.UI.GameplayUI
         private void OnUpdateScore(UpdateScoreEvent scoreEvent)
         {
             Model.UpdatePoints(scoreEvent.Points);
+        }
+
+        private void OnUIVisibleChanged(bool visible)
+        {
+            switch (visible)
+            {
+                case true:
+                    View.Show();
+                    break;
+                case false:
+                    View.Hide();
+                    break;
+            }
         }
 
         protected override void Cleanup()
