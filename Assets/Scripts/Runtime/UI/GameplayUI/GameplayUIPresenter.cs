@@ -50,7 +50,6 @@ namespace Assets.Scripts.Runtime.UI.GameplayUI
 
         protected override void UnsubscribeFromEvents()
         {
-            throw new System.NotImplementedException();
         }
 
         private void OnGoalScored(GoalEvent goalEvent)

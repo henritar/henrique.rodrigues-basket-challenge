@@ -21,7 +21,7 @@ namespace Assets.Scripts.Runtime.UI.GameplayUI
 
         public void UpdatePoints(int points)
         {
-            _currentPoints.Value = points;
+            _currentPoints.Value += points;
         }
     }
 
