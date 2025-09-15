@@ -99,5 +99,17 @@ namespace Assets.Scripts.Runtime.Managers
 
             return velocityXZ + Vector3.up * velocityY;
         }
+
+        protected override void OnDestroying()
+        {
+            if (!_isInitialized)
+            {
+                return;
+            }
+
+            _disposables?.Dispose();
+            _disposables = null;
+            _isInitialized = false;
+        }
     }
 }

@@ -32,6 +32,7 @@ namespace Assets.Scripts.Runtime.Managers
             _eventBus.OnEvent<GoalEvent>().Subscribe(OnGoalScored)
                 .AddTo(_disposables);
             _eventBus.OnEvent<ShotEvent>().Subscribe(OnShotMade).AddTo(_disposables);
+            _eventBus.OnEvent<UpdateBonusEvent>().Subscribe(OnNewBonus).AddTo(_disposables);
 
             _isInitialized = true;
         }
@@ -39,7 +40,7 @@ namespace Assets.Scripts.Runtime.Managers
         private void OnGoalScored(GoalEvent goalEvent)
         {
             int points = 0;
-            if (_currentBonus != BonusTypeEnum.None)
+            if (_currentBonus != BonusTypeEnum.None && _shotResult == ShotResultEnum.BackboardBasket)
             {
                 points = (int)_currentBonus;
             }
@@ -60,6 +61,11 @@ namespace Assets.Scripts.Runtime.Managers
         private void OnShotMade(ShotEvent shotEvent)
         {
             _shotResult = shotEvent.ShotResult;
+        }
+
+        private void OnNewBonus(UpdateBonusEvent updateBonusEvent)
+        {
+            _currentBonus = updateBonusEvent.Bonus;
         }
 
         protected override void OnDestroying()

@@ -841,8 +841,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.020472653, y: 0.11448819, z: 0.0023598988, w: 0.99321085}
-  m_LocalPosition: {x: -5.887901, y: 1.4055079, z: -27.125359}
+  m_LocalRotation: {x: -0.020472655, y: 0.11448819, z: 0.0023598988, w: 0.99321085}
+  m_LocalPosition: {x: -5.887901, y: 1.4055078, z: -27.125359}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1228,6 +1228,64 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd7811dc8cf55dc4fa21037972fe4ffb, type: 3}
+--- !u!1 &1225972341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1225972342}
+  - component: {fileID: 1225972344}
+  - component: {fileID: 1225972343}
+  m_Layer: 0
+  m_Name: BackboardCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1225972342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225972341}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -1.431, y: 3.379, z: -0.009}
+  m_LocalScale: {x: 0.9, y: 0.1, z: 1.7}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1626620204}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1225972343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225972341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 426347cf917603e4cb762e7568c375e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1225972344
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225972341}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1404919710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,8 +1348,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1404919710}
-  m_LocalRotation: {x: -0.020472653, y: 0.11448819, z: 0.0023598988, w: 0.99321085}
-  m_LocalPosition: {x: -5.887901, y: 1.4055079, z: -27.125359}
+  m_LocalRotation: {x: -0.020472655, y: 0.11448819, z: 0.0023598988, w: 0.99321085}
+  m_LocalPosition: {x: -5.887901, y: 1.4055078, z: -27.125359}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1530,6 +1588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b431e5ba6794c4baf531bc4fc57d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bonusText: {fileID: 329864526}
+  _bonusImage: {fileID: 877069667}
 --- !u!1 &2127025093
 GameObject:
   m_ObjectHideFlags: 0

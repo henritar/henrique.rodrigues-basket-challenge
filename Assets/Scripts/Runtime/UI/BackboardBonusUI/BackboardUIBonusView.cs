@@ -14,19 +14,28 @@ namespace Assets.Scripts.Runtime.UI.BackboardBonusUI
         
         public void EnableBonus(BonusTypeEnum bonusType)
         {
+            Color bonusColor = Color.white;
             switch (bonusType)
             {
-
+                case BonusTypeEnum.FourPoints:
+                    bonusColor = Color.yellow;
+                    break;
+                case BonusTypeEnum.SixPoints:
+                    bonusColor = Color.cyan;
+                    break;
+                case BonusTypeEnum.EightPoints:
+                    bonusColor = Color.magenta;
+                    break;
                 case BonusTypeEnum.None:
+                default:
                     _bonusImage.enabled = false;
                     _bonusText.enabled = false;
-                    break;
-                default:
-                    _bonusImage.enabled = true;
-                    _bonusText.enabled = true;
-                    _bonusText.text = $"+{(int)bonusType}";
-                    break;
+                    return;
             }
+            _bonusImage.enabled = true;
+            _bonusText.enabled = true;
+            _bonusImage.color = bonusColor;
+            _bonusText.text = $"+{(int)bonusType}";
         }
     }
 }

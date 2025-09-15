@@ -5,6 +5,6 @@ namespace Assets.Scripts.Runtime.Shared.Interfaces.UI
 {
     public interface IBackboardBonusUIPresenter : IBasePresenter
     {
-        void ShowUI(bool show, BonusTypeEnum bonus);
+        void ShowUI(bool show, BonusTypeEnum bonus = BonusTypeEnum.None);
     }
 }

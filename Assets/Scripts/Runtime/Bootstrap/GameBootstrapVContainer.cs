@@ -14,6 +14,7 @@ using Assets.Scripts.Runtime.Shared.Interfaces.InputSystem.Gameplay;
 using Assets.Scripts.Runtime.Shared.Interfaces.Interactables;
 using Assets.Scripts.Runtime.Shared.Interfaces.StateMachine;
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
+using Assets.Scripts.Runtime.UI.BackboardBonusUI;
 using Assets.Scripts.Runtime.UI.GameplayUI;
 using Assets.Scripts.Runtime.UI.MainMenu;
 using Assets.Scripts.Runtime.UI.RewardMenu;
@@ -40,6 +41,7 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.Register<ShotManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<SwipeManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<ShootingPositionManager>(Lifetime.Singleton).AsImplementedInterfaces();
+                builder.Register<BackboardBonusManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GameplayInputManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GameStatesManager>(Lifetime.Singleton).As<IGameStateManager>();
 
@@ -56,6 +58,7 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.RegisterComponentInHierarchy<BasketColliderDetector>().As<IBasketDetector>();
                 builder.RegisterComponentInHierarchy<BasketPoint>().As<IBasketPoint>();
                 builder.RegisterComponentInHierarchy<BackboardPoint>().As<IBackboardPoint>();
+                builder.RegisterComponentInHierarchy<BackboardColliderDetector>().As<IBackboardColliderDetector>();
 
             // Ball
                 builder.RegisterComponentInHierarchy<BallView>().As<IBallView>();
@@ -79,6 +82,10 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.RegisterComponentInHierarchy<GameplayUIView>().As<IGameplayUIView>();
                 builder.Register<GameplayUIModel>(Lifetime.Singleton).As<IGameplayUIModel>();
                 builder.Register<GameplayUIPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+
+                builder.RegisterComponentInHierarchy<BackboardUIBonusView>().As<IBackboardBonusUIView>();
+                builder.Register<BackboardBonusUIModel>(Lifetime.Singleton).As<IBackboardBonusUIModel>();
+                builder.Register<BackboardBonusUIPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Input Handlers
                 builder.Register<Gameplay_PlayingInputHandler>(Lifetime.Singleton).As<IPlayingInputHandler>();

@@ -141,5 +141,17 @@ namespace Assets.Scripts.Runtime.Managers
             _isTracking = false;
             _hasCalculated = false;
         }
+
+        protected override void OnDestroying()
+        {
+            if (!_isInitialized)
+            {
+                return;
+            }
+
+            _disposables?.Dispose();
+            _disposables = null;
+            _isInitialized = false;
+        }
     }
 }

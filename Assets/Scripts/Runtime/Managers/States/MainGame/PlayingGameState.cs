@@ -17,20 +17,23 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
         private readonly IGameplayInputManager _inputManager;
         private readonly IGameplayUIPresenter _gameplayUIPresenter;
         private readonly ISwipeManager _swipeManager;
+        private readonly IBackboardBonusManager _backboardBonusManager;
 
         private CompositeDisposable _disposables;
 
         protected override GameStatesEnum GameState => GameStatesEnum.Playing;
 
         public PlayingGameState(IBallPresenter ballPresenter, IPlayingInputHandler inputHandler,
-            IGameplayInputManager inputManager, IGameplayUIPresenter gameplayUIPresenter, ISwipeManager swipeManager)
+            IGameplayInputManager inputManager, IGameplayUIPresenter gameplayUIPresenter,
+            ISwipeManager swipeManager, IBackboardBonusManager backboardBonusManager)
         {
             _ballPresenter = ballPresenter;
             _inputHandler = inputHandler;
             _inputManager = inputManager;
             _gameplayUIPresenter = gameplayUIPresenter;
             _swipeManager = swipeManager;
-            
+            _backboardBonusManager = backboardBonusManager;
+
             _inputHandler.BallPresenter = _ballPresenter;
         }
 
@@ -43,10 +46,12 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
             _inputHandler.OnReleaseClick += _swipeManager.EndSwipeTracking;
             _disposables = new CompositeDisposable();
             _ballPresenter.OnBallReset.Subscribe(_ => _swipeManager.ResetSwipeTracking()).AddTo(_disposables);
+            _backboardBonusManager.StartBonusGeneration();
         }
 
         protected override void OnExitState()
         {
+            _backboardBonusManager.StopBonusGeneration();
             _inputHandler.OnReleaseClick -= _swipeManager.EndSwipeTracking;
             _inputHandler.OnHoldClick -= _swipeManager.StartSwipeTracking;
             _inputManager.SetCurrentInputHandler(null);

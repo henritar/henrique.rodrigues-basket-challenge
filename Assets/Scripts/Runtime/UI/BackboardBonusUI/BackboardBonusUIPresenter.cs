@@ -16,16 +16,6 @@ namespace Assets.Scripts.Runtime.UI.BackboardBonusUI
 
         public void ShowUI(bool show, BonusTypeEnum bonus = BonusTypeEnum.None)
         {
-            switch (show)
-            {
-                case true:
-                    View.Show();
-                    break;
-                case false:
-                    View.Hide();
-                    break;
-            }
-
             Model.SetUIVisible(show);
             Model.UpdateBonus(bonus);
         }
