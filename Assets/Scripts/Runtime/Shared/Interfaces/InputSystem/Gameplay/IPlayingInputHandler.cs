@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Assets.Scripts.Runtime.Shared.Interfaces.Interactables;
+using System;
 
 namespace Assets.Scripts.Runtime.Shared.Interfaces.InputSystem.Gameplay
 {
     public interface IPlayingInputHandler : IGameplayInputHandler
     {
-        event Action OnHoldClick;
+        IBallPresenter BallPresenter { get; set; }
+        event Action<IBallPresenter> OnHoldClick;
         event Action OnReleaseClick;
     }
 }

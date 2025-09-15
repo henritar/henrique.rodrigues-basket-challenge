@@ -33,6 +33,7 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.Register<GameManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GoalManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<ShotManager>(Lifetime.Singleton).AsImplementedInterfaces();
+                builder.Register<SwipeManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GameplayInputManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GameStatesManager>(Lifetime.Singleton).As<IGameStateManager>();
 
