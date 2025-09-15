@@ -18,7 +18,6 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
         private readonly IGameplayUIPresenter _gameplayUIPresenter;
         private readonly ISwipeManager _swipeManager;
 
-
         private CompositeDisposable _disposables;
 
         protected override GameStatesEnum GameState => GameStatesEnum.Playing;

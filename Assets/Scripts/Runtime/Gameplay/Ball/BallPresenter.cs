@@ -10,7 +10,7 @@ namespace Assets.Scripts.Runtime.Gameplay.Ball
     {
         private readonly Subject<Unit> _onBallReset = new();
         private CompositeDisposable _disposables = new CompositeDisposable();
-        public Vector3 BallPosition => View.Transform.position;
+        public Vector3 BallPosition { get => Model.StartPosition; set => Model.StartPosition = value; }
         public IObservable<Unit> OnBallReset => _onBallReset;
 
         public BallPresenter(IBallModel model, IBallView view) : base(model, view)
@@ -44,7 +44,6 @@ namespace Assets.Scripts.Runtime.Gameplay.Ball
         protected override void OnInitialize()
         {
             _disposables = new CompositeDisposable();
-            Model.StartPosition = View.Transform.position;
         }
 
         protected override void SubscribeToEvents()

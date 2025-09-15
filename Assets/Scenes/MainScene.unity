@@ -817,7 +817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd7811dc8cf55dc4fa21037972fe4ffb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.04
+      value: -3.31
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd7811dc8cf55dc4fa21037972fe4ffb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -825,7 +825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd7811dc8cf55dc4fa21037972fe4ffb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.75
+      value: -15.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd7811dc8cf55dc4fa21037972fe4ffb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -914,6 +914,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _gameplayInputReader: {fileID: 11400000, guid: 0428d25bf948cd942b234c1a7be74105, type: 2}
+  _shootingPositionData: {fileID: 11400000, guid: c14be5e459380ad4e87fc3371e29e3e3, type: 2}
 --- !u!4 &1680053537
 Transform:
   m_ObjectHideFlags: 0
@@ -959,6 +960,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2057358047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057358044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c2ad646635def14a858a2d3d31e210d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2127025093
 GameObject:
   m_ObjectHideFlags: 0

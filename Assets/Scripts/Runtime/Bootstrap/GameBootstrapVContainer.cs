@@ -1,11 +1,14 @@
 using Assets.Scripts.Runtime.Gameplay.Ball;
 using Assets.Scripts.Runtime.Gameplay.Interactables;
+using Assets.Scripts.Runtime.Gameplay.Player;
 using Assets.Scripts.Runtime.InputSystem.Gameplay;
 using Assets.Scripts.Runtime.Managers;
 using Assets.Scripts.Runtime.Managers.States.MainGame;
+using Assets.Scripts.Runtime.ScriptableObjects;
 using Assets.Scripts.Runtime.ScriptableObjects.InputSystem;
 using Assets.Scripts.Runtime.Shared.EventBus;
 using Assets.Scripts.Runtime.Shared.Interfaces;
+using Assets.Scripts.Runtime.Shared.Interfaces.Data;
 using Assets.Scripts.Runtime.Shared.Interfaces.InputSystem;
 using Assets.Scripts.Runtime.Shared.Interfaces.InputSystem.Gameplay;
 using Assets.Scripts.Runtime.Shared.Interfaces.Interactables;
@@ -23,17 +26,20 @@ namespace Assets.Scripts.Runtime.Bootstrap
     public class GameBootstrapVContainer : LifetimeScope
     {
         [SerializeField] private SO_GameplayInputReader _gameplayInputReader;
+        [SerializeField] private SO_ShootingPositionData _shootingPositionData;
 
         protected override void Configure(IContainerBuilder builder)
         {
             // Scriptable Objects
                 builder.RegisterInstance(_gameplayInputReader).As<IGameplayInputReader>().AsSelf();
+                builder.RegisterInstance(_shootingPositionData).As<IShootingPositionData>().AsSelf();
 
             // Managers
                 builder.Register<GameManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GoalManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<ShotManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<SwipeManager>(Lifetime.Singleton).AsImplementedInterfaces();
+                builder.Register<ShootingPositionManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GameplayInputManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GameStatesManager>(Lifetime.Singleton).As<IGameStateManager>();
 
@@ -56,6 +62,11 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.Register<BallModel>(Lifetime.Singleton).As<IBallModel>();
                 builder.Register<BallPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
+            // Player
+                builder.RegisterComponentInHierarchy<PlayerView>().As<IPlayerView>();
+                builder.Register<PlayerModel>(Lifetime.Singleton).As<IPlayerModel>();
+                builder.Register<PlayerPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+
             // UI
                 builder.RegisterComponentInHierarchy<MainMenuView>().As<IMainMenuView>();
                 builder.Register<MainMenuModel>(Lifetime.Singleton).As<IMainMenuModel>();
@@ -70,7 +81,7 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.Register<GameplayUIPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Input Handlers
-            builder.Register<Gameplay_PlayingInputHandler>(Lifetime.Singleton).As<IPlayingInputHandler>();
+                builder.Register<Gameplay_PlayingInputHandler>(Lifetime.Singleton).As<IPlayingInputHandler>();
 
             // Entry Point
                 builder.Register<GameEntryPoint>(Lifetime.Singleton);

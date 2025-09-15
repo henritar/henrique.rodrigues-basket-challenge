@@ -21,8 +21,8 @@ namespace Assets.Scripts.Runtime.Shared
         {
             if (_isActive || _isDisposed) return;
 
-            SubscribeToEvents();
             OnInitialize();
+            SubscribeToEvents();
 
             _isActive = true;
         }

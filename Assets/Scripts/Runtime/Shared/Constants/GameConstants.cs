@@ -15,5 +15,6 @@ namespace Assets.Scripts.Runtime.Shared.Constants
         public readonly static float MaxSwipeDistance = 200f; 
         public readonly static float MinSwipeSpeed = 100f;
         public readonly static float SwipeTimeWindow = 1f;
+        public readonly static Vector3 BallOffset = new Vector3(0.15f, 1.6f, 0.3f);
     }
 }
