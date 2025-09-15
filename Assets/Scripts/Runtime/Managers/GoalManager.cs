@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Runtime.Shared;
+﻿using Assets.Scripts.Runtime.Enums;
+using Assets.Scripts.Runtime.Shared;
 using Assets.Scripts.Runtime.Shared.EventBus.Events;
 using Assets.Scripts.Runtime.Shared.Interfaces;
 using UniRx;
@@ -9,8 +10,10 @@ namespace Assets.Scripts.Runtime.Managers
     public class GoalManager : BaseManager, IGoalManager
     {
         private readonly IEventBus _eventBus;
-
         private CompositeDisposable _disposables;
+
+        private BonusTypeEnum _currentBonus = BonusTypeEnum.None;
+        private ShotResultEnum _shotResult = ShotResultEnum.MissWeak;
         public GoalManager(IEventBus eventBus) 
         {
             _eventBus = eventBus;
@@ -28,13 +31,35 @@ namespace Assets.Scripts.Runtime.Managers
 
             _eventBus.OnEvent<GoalEvent>().Subscribe(OnGoalScored)
                 .AddTo(_disposables);
+            _eventBus.OnEvent<ShotEvent>().Subscribe(OnShotMade).AddTo(_disposables);
 
             _isInitialized = true;
         }
 
         private void OnGoalScored(GoalEvent goalEvent)
         {
-            Debug.Log($"Goal scored! Points: {goalEvent.Points}");
+            int points = 0;
+            if (_currentBonus != BonusTypeEnum.None)
+            {
+                points = (int)_currentBonus;
+            }
+            else
+            {
+                points = _shotResult switch
+                {
+                    ShotResultEnum.PerfectShot => 3,
+                    ShotResultEnum.RingTouch or  ShotResultEnum.BackboardBasket => 2,
+                    _ => 0
+                };
+            }
+
+            _eventBus.Publish(new UpdateScoreEvent(points));
+            Debug.Log($"Goal scored! Points: {points}");
+        }
+
+        private void OnShotMade(ShotEvent shotEvent)
+        {
+            _shotResult = shotEvent.ShotResult;
         }
 
         protected override void OnDestroying()

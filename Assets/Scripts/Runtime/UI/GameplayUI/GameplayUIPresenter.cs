@@ -39,8 +39,8 @@ namespace Assets.Scripts.Runtime.UI.GameplayUI
 
         protected override void SubscribeToEvents()
         {
-            _eventBus.OnEvent<GoalEvent>()
-                .Subscribe(OnGoalScored)
+            _eventBus.OnEvent<UpdateScoreEvent>()
+                .Subscribe(OnUpdateScore)
                 .AddTo(_disposables);
 
             Model.CurrentPoints
@@ -52,9 +52,9 @@ namespace Assets.Scripts.Runtime.UI.GameplayUI
         {
         }
 
-        private void OnGoalScored(GoalEvent goalEvent)
+        private void OnUpdateScore(UpdateScoreEvent scoreEvent)
         {
-            Model.UpdatePoints(goalEvent.Points);
+            Model.UpdatePoints(scoreEvent.Points);
         }
 
         protected override void Cleanup()

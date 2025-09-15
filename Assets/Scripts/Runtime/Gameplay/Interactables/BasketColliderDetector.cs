@@ -15,7 +15,7 @@ namespace Assets.Scripts.Runtime.Gameplay.Interactables
         {
             if (other.CompareTag("Basketball"))
             {
-                _eventBus.Publish(new GoalEvent(3));
+                _eventBus.Publish(new GoalEvent());
             }
         }
     }
