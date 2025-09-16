@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Runtime.ScriptableObjects;
-using Assets.Scripts.Runtime.Shared;
+﻿using Assets.Scripts.Runtime.Shared;
 using Assets.Scripts.Runtime.Shared.Interfaces;
+using Assets.Scripts.Runtime.Shared.Interfaces.Data;
 using Assets.Scripts.Runtime.Shared.Interfaces.Interactables;
 using UnityEngine;
 using VContainer.Unity;
@@ -11,9 +11,9 @@ namespace Assets.Scripts.Runtime.Managers
     {
 
         private readonly IPlayerPresenter _playerController;
-        private readonly SO_ShootingPositionData _shootingData;
+        private readonly IShootingPositionData _shootingData;
 
-        public ShootingPositionManager(SO_ShootingPositionData shootingData, IPlayerPresenter playerController)
+        public ShootingPositionManager(IShootingPositionData shootingData, IPlayerPresenter playerController)
         {
             _shootingData = shootingData;
             _playerController = playerController;

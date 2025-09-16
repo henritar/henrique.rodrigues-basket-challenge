@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65f4d2dbff9b764aa719ae936524b31, type: 3}
+  m_Name: DefaultBackboardBonusData
+  m_EditorClassIdentifier: 
+  _noBonusChance: 0.45
+  _commonBonusChance: 0.3
+  _rareBonusChance: 0.15
+  _veryRareBonusChance: 0.1
+  _minBonusInterval: 2
+  _maxBonusInterval: 5

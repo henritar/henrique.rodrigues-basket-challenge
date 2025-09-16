@@ -1,8 +1,8 @@
 ﻿using Assets.Scripts.Runtime.Enums;
 using Assets.Scripts.Runtime.Shared;
-using Assets.Scripts.Runtime.Shared.Constants;
 using Assets.Scripts.Runtime.Shared.EventBus.Events;
 using Assets.Scripts.Runtime.Shared.Interfaces;
+using Assets.Scripts.Runtime.Shared.Interfaces.Data;
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
 using Cysharp.Threading.Tasks;
 using System;
@@ -16,19 +16,21 @@ namespace Assets.Scripts.Runtime.Managers
     {
         private readonly IBackboardBonusUIPresenter _backboardBonusUIPresenter;
         private readonly IEventBus _eventBus;
+        private readonly IBackboardBonusData _backboardBonusData;
 
-        private float _noBonusChance = GameConstants.NoBonusChance;
-        private float _commonChance = GameConstants.CommonBonusChance;
-        private float _rareChance = GameConstants.RareBonusChance;
-        private float _veryRareChance = GameConstants.VeryRareBonusChance;
+        private float _noBonusChance;
+        private float _commonChance;
+        private float _rareChance;
+        private float _veryRareChance;
 
         private bool isGenerating;
 
         private CancellationTokenSource cancellationTokenSource;
         private CompositeDisposable _disposables;
-        public BackboardBonusManager(IBackboardBonusUIPresenter backboardBonusUIPresenter, IEventBus eventBus)
+        public BackboardBonusManager(IBackboardBonusUIPresenter backboardBonusUIPresenter, IBackboardBonusData backboardBonusData, IEventBus eventBus)
         {
             _backboardBonusUIPresenter = backboardBonusUIPresenter;
+            _backboardBonusData = backboardBonusData;
             _eventBus = eventBus;
         }
 
@@ -84,7 +86,7 @@ namespace Assets.Scripts.Runtime.Managers
             var showUI = bonusType != BonusTypeEnum.None;
             _backboardBonusUIPresenter.ShowUI(true, bonusType);
 
-            float waitTime = UnityEngine.Random.Range(GameConstants.MinBonusInterval, GameConstants.MaxBonusInterval);
+            float waitTime = UnityEngine.Random.Range(_backboardBonusData.MinBonusInterval, _backboardBonusData.MaxBonusInterval);
             await UniTask.Delay(TimeSpan.FromSeconds(waitTime), cancellationToken: cancellationToken);
 
             _backboardBonusUIPresenter.ShowUI(false);
@@ -98,26 +100,37 @@ namespace Assets.Scripts.Runtime.Managers
             {
                 return BonusTypeEnum.None;
             }
-            else if (roll <= _commonChance + _noBonusChance)
+            else if (roll <= _noBonusChance + _commonChance)
             {
                 return BonusTypeEnum.FourPoints;
             }
-            else if (roll <= _commonChance + _rareChance)
+            else if (roll <= _noBonusChance + _commonChance + _rareChance)
             {
                 return BonusTypeEnum.SixPoints;
             }
-            else
+            else if (roll <= _noBonusChance + _commonChance + _rareChance + _veryRareChance)
+            {
                 return BonusTypeEnum.EightPoints;
+            }
+            else
+                return BonusTypeEnum.None;
         }
 
         private void NormalizeProbabilities()
         {
-            float total = GameConstants.NoBonusChance + GameConstants.CommonBonusChance + GameConstants.RareBonusChance + GameConstants.VeryRareBonusChance;
-            _noBonusChance /= total;
-            _commonChance /= total;
-            _rareChance /= total;
-            _veryRareChance /= total;
+            float no = _backboardBonusData.NoBonusChance;
+            float common = _backboardBonusData.CommonBonusChance;
+            float rare = _backboardBonusData.RareBonusChance;
+            float veryRare = _backboardBonusData.VeryRareBonusChance;
+
+            float total = no + common + rare + veryRare;
+
+            _noBonusChance = no / total;
+            _commonChance = common / total;
+            _rareChance = rare / total;
+            _veryRareChance = veryRare / total;
         }
+
 
         protected override void OnDestroying()
         {

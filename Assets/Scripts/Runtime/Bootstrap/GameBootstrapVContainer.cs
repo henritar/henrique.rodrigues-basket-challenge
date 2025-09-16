@@ -28,12 +28,14 @@ namespace Assets.Scripts.Runtime.Bootstrap
     {
         [SerializeField] private SO_GameplayInputReader _gameplayInputReader;
         [SerializeField] private SO_ShootingPositionData _shootingPositionData;
+        [SerializeField] private SO_BackboardBonusData _backboardBonusData;
 
         protected override void Configure(IContainerBuilder builder)
         {
             // Scriptable Objects
-                builder.RegisterInstance(_gameplayInputReader).As<IGameplayInputReader>().AsSelf();
-                builder.RegisterInstance(_shootingPositionData).As<IShootingPositionData>().AsSelf();
+                builder.RegisterInstance(_gameplayInputReader).As<IGameplayInputReader>();
+                builder.RegisterInstance(_shootingPositionData).As<IShootingPositionData>();
+                builder.RegisterInstance(_backboardBonusData).As<IBackboardBonusData>();
 
             // Managers
                 builder.Register<GameManager>(Lifetime.Singleton).AsImplementedInterfaces();

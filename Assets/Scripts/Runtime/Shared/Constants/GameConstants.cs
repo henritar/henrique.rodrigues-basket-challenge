@@ -16,12 +16,7 @@ namespace Assets.Scripts.Runtime.Shared.Constants
         public readonly static float MinSwipeSpeed = 100f;
         public readonly static float SwipeTimeWindow = 2f;
         public readonly static Vector3 BallOffset = new Vector3(0.15f, 1.6f, 0.3f);
-        public readonly static float NoBonusChance = 0.45f;
-        public readonly static float CommonBonusChance = 0.3f;
-        public readonly static float RareBonusChance = 0.15f;
-        public readonly static float VeryRareBonusChance = 0.1f;
-        public readonly static float MinBonusInterval = 2.0f;
-        public readonly static float MaxBonusInterval = 5.0f;
+        
         public static int GetRandomEvenOdd() 
         {
             return Random.value < 0.5f ? -1 : 1; 

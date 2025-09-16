@@ -1200,6 +1200,7 @@ MonoBehaviour:
   autoInjectGameObjects: []
   _gameplayInputReader: {fileID: 11400000, guid: 0428d25bf948cd942b234c1a7be74105, type: 2}
   _shootingPositionData: {fileID: 11400000, guid: c14be5e459380ad4e87fc3371e29e3e3, type: 2}
+  _backboardBonusData: {fileID: 11400000, guid: 2cb499a8806e0ba4bb4cdf85ff7df786, type: 2}
 --- !u!4 &1680053537
 Transform:
   m_ObjectHideFlags: 0
