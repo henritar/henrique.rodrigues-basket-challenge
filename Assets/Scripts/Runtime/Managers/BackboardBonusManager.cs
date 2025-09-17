@@ -14,7 +14,6 @@ namespace Assets.Scripts.Runtime.Managers
 {
     public class BackboardBonusManager : BaseManager, IBackboardBonusManager
     {
-        private readonly IBackboardBonusUIPresenter _backboardBonusUIPresenter;
         private readonly IEventBus _eventBus;
         private readonly IBackboardBonusData _backboardBonusData;
 
@@ -27,9 +26,9 @@ namespace Assets.Scripts.Runtime.Managers
 
         private CancellationTokenSource cancellationTokenSource;
         private CompositeDisposable _disposables;
-        public BackboardBonusManager(IBackboardBonusUIPresenter backboardBonusUIPresenter, IBackboardBonusData backboardBonusData, IEventBus eventBus)
+
+        public BackboardBonusManager(IBackboardBonusData backboardBonusData, IEventBus eventBus)
         {
-            _backboardBonusUIPresenter = backboardBonusUIPresenter;
             _backboardBonusData = backboardBonusData;
             _eventBus = eventBus;
         }
@@ -43,7 +42,7 @@ namespace Assets.Scripts.Runtime.Managers
             }
 
             NormalizeProbabilities();
-            _backboardBonusUIPresenter.ShowUI(false);
+
             _disposables = new();
 
             _isInitialized = true;
@@ -83,13 +82,9 @@ namespace Assets.Scripts.Runtime.Managers
             var bonusType = RollBonusType();
             
             _eventBus.Publish(new UpdateBonusEvent(bonusType));
-            var showUI = bonusType != BonusTypeEnum.None;
-            _backboardBonusUIPresenter.ShowUI(true, bonusType);
 
             float waitTime = UnityEngine.Random.Range(_backboardBonusData.MinBonusInterval, _backboardBonusData.MaxBonusInterval);
             await UniTask.Delay(TimeSpan.FromSeconds(waitTime), cancellationToken: cancellationToken);
-
-            _backboardBonusUIPresenter.ShowUI(false);
         }
 
         private BonusTypeEnum RollBonusType()

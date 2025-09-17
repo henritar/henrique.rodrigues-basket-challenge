@@ -1,10 +1,9 @@
-﻿using Assets.Scripts.Runtime.Enums;
-using Assets.Scripts.Runtime.Shared.Interfaces.MVP;
+﻿using Assets.Scripts.Runtime.Shared.Interfaces.MVP;
 
 namespace Assets.Scripts.Runtime.Shared.Interfaces.UI
 {
     public interface IBackboardBonusUIPresenter : IBasePresenter
     {
-        void ShowUI(bool show, BonusTypeEnum bonus = BonusTypeEnum.None);
+        void ShowUI(bool show);
     }
 }
