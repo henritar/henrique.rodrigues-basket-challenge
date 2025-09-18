@@ -1,15 +1,14 @@
 ﻿using Assets.Scripts.Runtime.Shared;
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
 using UniRx;
-using UnityEngine.Events;
 
-namespace Assets.Scripts.Runtime.UI.RewardMenu
+namespace Assets.Scripts.Runtime.UI.Timer.TimerUI
 {
-    public class RewardMenuPresenter : BasePresenter<IRewardMenuModel, IRewardMenuView>, IRewardMenuPresenter
+    public class TimerUIPresenter : BasePresenter<ITimerUIModel, ITimerUIView>, ITimerUIPresenter
     {
         private CompositeDisposable _disposables = new CompositeDisposable();
 
-        public RewardMenuPresenter(IRewardMenuModel model, IRewardMenuView view) : base(model, view)
+        public TimerUIPresenter(ITimerUIModel model, ITimerUIView view) : base(model, view)
         {
         }
 
@@ -18,30 +17,25 @@ namespace Assets.Scripts.Runtime.UI.RewardMenu
             Model.SetUIVisible(show);
         }
 
-        public void SetMainMenuAction(UnityAction action)
+        public void SetTimerValue(float value)
         {
-            View.SetMainMenuAction(action);
-        }
-
-        public void SetPlayAgainAction(UnityAction action)
-        {
-            View.SetPlayAgainAction(action);
-        }
-
-        public void SetFinalScore(int finalScore)
-        {
-            Model.SetFinalScore(finalScore);
+            Model.SetTimerValue(value);
         }
 
         protected override void SubscribeToEvents()
         {
-
             Model.IsUIVisible.Subscribe(OnUIVisibleChanged).AddTo(_disposables);
-            Model.FinalScore.Subscribe(View.SetFinalScore).AddTo(_disposables);
+            Model.CurrentTimerValue.Subscribe(View.SetTimerValue).AddTo(_disposables);
         }
 
         protected override void UnsubscribeFromEvents()
         {
+        }
+
+        protected override void Cleanup()
+        {
+            _disposables.Dispose();
+            _disposables = null;
         }
 
         private void OnUIVisibleChanged(bool visible)
@@ -55,12 +49,6 @@ namespace Assets.Scripts.Runtime.UI.RewardMenu
                     View.Hide();
                     break;
             }
-        }
-
-        protected override void Cleanup()
-        {
-            _disposables.Dispose();
-            _disposables = null;
         }
     }
 }

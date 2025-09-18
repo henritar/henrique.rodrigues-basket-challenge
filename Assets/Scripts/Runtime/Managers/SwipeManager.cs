@@ -15,7 +15,6 @@ namespace Assets.Scripts.Runtime.Managers
     {
         private readonly IGameplayInputManager _inputManager;
         private readonly IEventBus _eventBus;
-        private readonly IShootingPositionManager _shootingPositionManager;
 
         private IBallPresenter _ballPresenter;
         private CompositeDisposable _disposables;
@@ -27,11 +26,10 @@ namespace Assets.Scripts.Runtime.Managers
         private bool _hasCalculated;
         private CancellationTokenSource _swipeCts;
 
-        public SwipeManager(IGameplayInputManager inputManager, IEventBus eventBus, IShootingPositionManager shootingPositionManager)
+        public SwipeManager(IGameplayInputManager inputManager, IEventBus eventBus)
         {
             _inputManager = inputManager;
             _eventBus = eventBus;
-            _shootingPositionManager = shootingPositionManager;
         }
 
         public override void Initialize()
@@ -137,7 +135,6 @@ namespace Assets.Scripts.Runtime.Managers
 
         public void ResetSwipeTracking()
         {
-            _shootingPositionManager.MoveToRandomShootingPosition();
             _isTracking = false;
             _hasCalculated = false;
         }

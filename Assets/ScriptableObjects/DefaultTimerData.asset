@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de5684b8c1230bb4e9608401578a711d, type: 3}
   m_Name: DefaultTimerData
   m_EditorClassIdentifier: 
-  _initialTimerValues: 1e0000003c0000005a000000
+  _initialTimerValues: 0f0000001e0000003c0000005a000000

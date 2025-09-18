@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Runtime.Shared;
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
-using System;
 using UniRx;
 
 namespace Assets.Scripts.Runtime.UI.GameplayUI
@@ -21,7 +20,7 @@ namespace Assets.Scripts.Runtime.UI.GameplayUI
 
         public void UpdatePoints(int points)
         {
-            _currentPoints.Value += points;
+            _currentPoints.Value = points;
         }
     }
 

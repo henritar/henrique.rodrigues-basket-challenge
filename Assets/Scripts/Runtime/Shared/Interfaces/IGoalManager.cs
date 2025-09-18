@@ -2,5 +2,6 @@
 {
     public interface IGoalManager
     {
+        int CurrentScore { get; }
     }
 }

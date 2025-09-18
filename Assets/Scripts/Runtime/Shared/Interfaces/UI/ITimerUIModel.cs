@@ -3,11 +3,11 @@ using UniRx;
 
 namespace Assets.Scripts.Runtime.Shared.Interfaces.UI
 {
-    public interface IRewardMenuModel : IBaseModel
+    public interface ITimerUIModel : IBaseModel
     {
+        IReadOnlyReactiveProperty<float> CurrentTimerValue { get; }
         IReadOnlyReactiveProperty<bool> IsUIVisible { get; }
-        IReadOnlyReactiveProperty<int> FinalScore { get; }
         void SetUIVisible(bool visible);
-        void SetFinalScore(int finalScore);
+        void SetTimerValue(float value);
     }
 }

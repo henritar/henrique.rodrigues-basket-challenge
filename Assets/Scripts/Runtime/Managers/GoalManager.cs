@@ -11,9 +11,13 @@ namespace Assets.Scripts.Runtime.Managers
     {
         private readonly IEventBus _eventBus;
         private CompositeDisposable _disposables;
+        private ReactiveProperty<int> _currentScore = new();
 
         private BonusTypeEnum _currentBonus = BonusTypeEnum.None;
         private ShotResultEnum _shotResult = ShotResultEnum.MissWeak;
+
+        public int CurrentScore => _currentScore.Value;
+
         public GoalManager(IEventBus eventBus) 
         {
             _eventBus = eventBus;
@@ -33,6 +37,9 @@ namespace Assets.Scripts.Runtime.Managers
                 .AddTo(_disposables);
             _eventBus.OnEvent<ShotEvent>().Subscribe(OnShotMade).AddTo(_disposables);
             _eventBus.OnEvent<UpdateBonusEvent>().Subscribe(OnNewBonus).AddTo(_disposables);
+            _eventBus.OnEvent<GameStartEvent>().Subscribe(_ => _currentScore.Value = 0).AddTo(_disposables);
+
+            _currentScore.Subscribe(OnUpdateScore).AddTo(_disposables);
 
             _isInitialized = true;
         }
@@ -54,8 +61,13 @@ namespace Assets.Scripts.Runtime.Managers
                 };
             }
 
-            _eventBus.Publish(new UpdateScoreEvent(points));
+            _currentScore.Value += points;
             Debug.Log($"Goal scored! Points: {points}");
+        }
+
+        private void OnUpdateScore(int newScore)
+        {
+            _eventBus.Publish(new UpdateScoreEvent(newScore));
         }
 
         private void OnShotMade(ShotEvent shotEvent)

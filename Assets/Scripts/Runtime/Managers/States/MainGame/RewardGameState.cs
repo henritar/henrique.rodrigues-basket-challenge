@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Runtime.Enums;
 using Assets.Scripts.Runtime.Shared;
+using Assets.Scripts.Runtime.Shared.Interfaces;
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
 using UnityEngine;
 
@@ -8,10 +9,12 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
     public class RewardGameState : BaseGameState
     {
         private readonly IRewardMenuPresenter _rewardMenuPresenter;
+        private readonly IGoalManager _goalManager;
         protected override GameStatesEnum GameState => GameStatesEnum.Reward;
 
-        public RewardGameState(IRewardMenuPresenter rewardMenuPresenter)
+        public RewardGameState(IGoalManager goalManager, IRewardMenuPresenter rewardMenuPresenter)
         {
+            _goalManager = goalManager;
             _rewardMenuPresenter = rewardMenuPresenter;
             _rewardMenuPresenter.SetMainMenuAction(() =>
             {
@@ -27,6 +30,7 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
         {
             Debug.Log("Entering Reward Game State");
             _rewardMenuPresenter.ShowUI(true);
+            _rewardMenuPresenter.SetFinalScore(_goalManager.CurrentScore);
         }
 
         protected override void OnExitState()

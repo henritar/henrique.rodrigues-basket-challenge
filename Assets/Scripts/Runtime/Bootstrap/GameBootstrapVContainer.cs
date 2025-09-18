@@ -19,6 +19,7 @@ using Assets.Scripts.Runtime.UI.GameplayUI;
 using Assets.Scripts.Runtime.UI.MainMenu;
 using Assets.Scripts.Runtime.UI.RewardMenu;
 using Assets.Scripts.Runtime.UI.Timer.TimerMenu;
+using Assets.Scripts.Runtime.UI.Timer.TimerUI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -39,6 +40,7 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 _shootingPositionData ??= ScriptableObject.CreateInstance<SO_ShootingPositionData>();
                 _backboardBonusData ??= ScriptableObject.CreateInstance<SO_BackboardBonusData>();
                 _timerData ??= ScriptableObject.CreateInstance<SO_TimerData>();
+
                 builder.RegisterInstance(_gameplayInputReader).As<IGameplayInputReader>();
                 builder.RegisterInstance(_shootingPositionData).As<IShootingPositionData>();
                 builder.RegisterInstance(_backboardBonusData).As<IBackboardBonusData>();
@@ -100,6 +102,10 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.RegisterComponentInHierarchy<TimerMenuView>().As<ITimerMenuView>();
                 builder.Register<TimerMenuModel>(Lifetime.Singleton).As<ITimerMenuModel>();
                 builder.Register<TimerMenuPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+
+                builder.RegisterComponentInHierarchy<TimerUIView>().As<ITimerUIView>();
+                builder.Register<TimerUIModel>(Lifetime.Singleton).As<ITimerUIModel>();
+                builder.Register<TimerUIPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Input Handlers
                 builder.Register<Gameplay_PlayingInputHandler>(Lifetime.Singleton).As<IPlayingInputHandler>();

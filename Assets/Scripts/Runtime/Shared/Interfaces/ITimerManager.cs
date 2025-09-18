@@ -6,5 +6,6 @@ namespace Assets.Scripts.Runtime.Shared.Interfaces
     {
         public IReadOnlyReactiveProperty<float> Timer { get; }
         void SetInitialTimer(int time);
+        void StartTimer();
     }
 }

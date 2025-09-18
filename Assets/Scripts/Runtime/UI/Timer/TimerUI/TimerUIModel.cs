@@ -2,23 +2,23 @@
 using Assets.Scripts.Runtime.Shared.Interfaces.UI;
 using UniRx;
 
-namespace Assets.Scripts.Runtime.UI.RewardMenu
+namespace Assets.Scripts.Runtime.UI.Timer.TimerUI
 {
-    public class RewardMenuModel : BaseModel, IRewardMenuModel
+    public class TimerUIModel : BaseModel, ITimerUIModel
     {
-        private readonly ReactiveProperty<int> _finalScore = new ReactiveProperty<int>();
         private readonly ReactiveProperty<bool> _isUIVisible = new ReactiveProperty<bool>(false);
+        private readonly ReactiveProperty<float> _currentTimerValue = new ReactiveProperty<float>();
         public IReadOnlyReactiveProperty<bool> IsUIVisible => _isUIVisible;
-        public IReadOnlyReactiveProperty<int> FinalScore => _finalScore;
+
+        public IReadOnlyReactiveProperty<float> CurrentTimerValue => _currentTimerValue;
 
         public void SetUIVisible(bool visible)
         {
             _isUIVisible.Value = visible;
         }
-
-        public void SetFinalScore(int finalScore)
+        public void SetTimerValue(float value)
         {
-            _finalScore.Value = finalScore;
+            _currentTimerValue.Value = value;
         }
     }
 }
