@@ -6,7 +6,7 @@ using static InputSystem_Actions;
 
 namespace Assets.Scripts.Runtime.ScriptableObjects.InputSystem
 {
-    [CreateAssetMenu(fileName = "New Gameplay Input Reader", menuName = "Scriptable Objects/Input System/Gameplay Input Reader")]
+    [CreateAssetMenu(fileName = "New GameplayInputReader", menuName = "Scriptable Objects/Input System/Gameplay Input Reader")]
     public class SO_GameplayInputReader : ScriptableObject, IGameplayActions, IGameplayInputReader
     {
         public event UnityAction PlainClicked;

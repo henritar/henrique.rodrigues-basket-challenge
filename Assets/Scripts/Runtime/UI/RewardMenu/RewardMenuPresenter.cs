@@ -7,24 +7,14 @@ namespace Assets.Scripts.Runtime.UI.RewardMenu
 {
     public class RewardMenuPresenter : BasePresenter<IRewardMenuModel, IRewardMenuView>, IRewardMenuPresenter
     {
-
         private CompositeDisposable _disposables = new CompositeDisposable();
+
         public RewardMenuPresenter(IRewardMenuModel model, IRewardMenuView view) : base(model, view)
         {
         }
 
         public void ShowUI(bool show)
         {
-            switch (show)
-            {
-                case true:
-                    View.Show();
-                    break;
-                case false:
-                    View.Hide();
-                    break;
-            }
-
             Model.SetUIVisible(show);
         }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Runtime.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "NewBackboardBonusData", menuName = "Scriptable Objects/Data/BackboardBonusData", order = 2)]
+    [CreateAssetMenu(fileName = "New BackboardBonusData", menuName = "Scriptable Objects/Data/BackboardBonusData", order = 2)]
     public class SO_BackboardBonusData : ScriptableObject, IBackboardBonusData
     {
         [SerializeField] private float _noBonusChance = 0.45f;

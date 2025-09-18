@@ -10,10 +10,12 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
         protected override GameStatesEnum GameState => GameStatesEnum.MainMenu;
 
         private readonly IMainMenuPresenter _mainMenuPresenter;
+        private readonly ITimerMenuPresenter _timerMenuPresenter;
 
-        public MainMenuGameState(IMainMenuPresenter mainMenuPresenter)
+        public MainMenuGameState(IMainMenuPresenter mainMenuPresenter, ITimerMenuPresenter timerMenuPresenter)
         {
             _mainMenuPresenter = mainMenuPresenter;
+            _timerMenuPresenter = timerMenuPresenter;
             _mainMenuPresenter.SetStartGameAction(() =>
             {
                 _stateManager.ChangeState(GameStatesEnum.Playing);
@@ -24,12 +26,14 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
         {
             Debug.Log("Entering MainMenu Game State");
             _mainMenuPresenter.ShowUI(true);
+            _timerMenuPresenter.ShowUI(true);
         }
 
         protected override void OnExitState()
         {
-            Debug.Log("Exiting MainMenu Game State");
             _mainMenuPresenter.ShowUI(false);
+            _timerMenuPresenter.ShowUI(false);
+            Debug.Log("Exiting MainMenu Game State");
         }
 
         protected override void OnUpdate()

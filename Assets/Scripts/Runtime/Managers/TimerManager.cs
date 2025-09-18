@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace Assets.Scripts.Runtime.Managers
 {
-    public class TimeManager : BaseManager, ITimeManager
+    public class TimerManager : BaseManager, ITimerManager
     {
         private CompositeDisposable _disposables;
         private ReactiveProperty<float> _timer;
-
+        private int _initialTime;
         public IReadOnlyReactiveProperty<float> Timer => _timer;
         public override void Initialize()
         {
@@ -22,6 +22,14 @@ namespace Assets.Scripts.Runtime.Managers
             _disposables = new();
 
             _isInitialized = true;
+        }
+
+        public void SetInitialTimer(int time)
+        {
+            _initialTime = time;
+            _timer = new ReactiveProperty<float>(time);
+
+            Debug.Log($"TimerManager: Timer set to {_initialTime} seconds.");
         }
 
         protected override void OnDestroying()

@@ -18,6 +18,7 @@ using Assets.Scripts.Runtime.UI.BackboardBonusUI;
 using Assets.Scripts.Runtime.UI.GameplayUI;
 using Assets.Scripts.Runtime.UI.MainMenu;
 using Assets.Scripts.Runtime.UI.RewardMenu;
+using Assets.Scripts.Runtime.UI.Timer.TimerMenu;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -29,19 +30,26 @@ namespace Assets.Scripts.Runtime.Bootstrap
         [SerializeField] private SO_GameplayInputReader _gameplayInputReader;
         [SerializeField] private SO_ShootingPositionData _shootingPositionData;
         [SerializeField] private SO_BackboardBonusData _backboardBonusData;
+        [SerializeField] private SO_TimerData _timerData;
 
         protected override void Configure(IContainerBuilder builder)
         {
             // Scriptable Objects
+                _gameplayInputReader ??= ScriptableObject.CreateInstance<SO_GameplayInputReader>();
+                _shootingPositionData ??= ScriptableObject.CreateInstance<SO_ShootingPositionData>();
+                _backboardBonusData ??= ScriptableObject.CreateInstance<SO_BackboardBonusData>();
+                _timerData ??= ScriptableObject.CreateInstance<SO_TimerData>();
                 builder.RegisterInstance(_gameplayInputReader).As<IGameplayInputReader>();
                 builder.RegisterInstance(_shootingPositionData).As<IShootingPositionData>();
                 builder.RegisterInstance(_backboardBonusData).As<IBackboardBonusData>();
+                builder.RegisterInstance(_timerData).As<ITimerData>();
 
             // Managers
                 builder.Register<GameManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GoalManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<ShotManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<SwipeManager>(Lifetime.Singleton).AsImplementedInterfaces();
+                builder.Register<TimerManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<ShootingPositionManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<BackboardBonusManager>(Lifetime.Singleton).AsImplementedInterfaces();
                 builder.Register<GameplayInputManager>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -88,6 +96,10 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.RegisterComponentInHierarchy<BackboardUIBonusView>().As<IBackboardBonusUIView>();
                 builder.Register<BackboardBonusUIModel>(Lifetime.Singleton).As<IBackboardBonusUIModel>();
                 builder.Register<BackboardBonusUIPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
+
+                builder.RegisterComponentInHierarchy<TimerMenuView>().As<ITimerMenuView>();
+                builder.Register<TimerMenuModel>(Lifetime.Singleton).As<ITimerMenuModel>();
+                builder.Register<TimerMenuPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Input Handlers
                 builder.Register<Gameplay_PlayingInputHandler>(Lifetime.Singleton).As<IPlayingInputHandler>();
