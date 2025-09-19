@@ -53,6 +53,7 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
             _backboardBonusManager.StartBonusGeneration();
             _timerManager.StartTimer();
             _swipeManager.ResetSwipeTracking();
+            _swipeManager.ShowInputBar(true);
 
             _gameplayUIPresenter.ShowUI(true);
             _timerUIPresenter.ShowUI(true);
@@ -68,6 +69,7 @@ namespace Assets.Scripts.Runtime.Managers.States.MainGame
 
             _timerUIPresenter.ShowUI(false);
             _gameplayUIPresenter.ShowUI(false);
+            _swipeManager.ShowInputBar(false);
 
             _backboardBonusManager.StopBonusGeneration();
 

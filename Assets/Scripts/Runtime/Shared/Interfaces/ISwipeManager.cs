@@ -7,5 +7,6 @@ namespace Assets.Scripts.Runtime.Shared.Interfaces
         void StartSwipeTracking(IBallPresenter ballPresenter);
         void EndSwipeTracking();
         void ResetSwipeTracking();
+        void ShowInputBar(bool show);
     }
 }

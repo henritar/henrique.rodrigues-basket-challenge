@@ -32,6 +32,7 @@ namespace Assets.Scripts.Runtime.Bootstrap
         [SerializeField] private SO_ShootingPositionData _shootingPositionData;
         [SerializeField] private SO_BackboardBonusData _backboardBonusData;
         [SerializeField] private SO_TimerData _timerData;
+        [SerializeField] private SO_ShotResultData _shotResultData;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -40,11 +41,13 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 _shootingPositionData ??= ScriptableObject.CreateInstance<SO_ShootingPositionData>();
                 _backboardBonusData ??= ScriptableObject.CreateInstance<SO_BackboardBonusData>();
                 _timerData ??= ScriptableObject.CreateInstance<SO_TimerData>();
+                _shotResultData  ??= ScriptableObject.CreateInstance<SO_ShotResultData>();
 
                 builder.RegisterInstance(_gameplayInputReader).As<IGameplayInputReader>();
                 builder.RegisterInstance(_shootingPositionData).As<IShootingPositionData>();
                 builder.RegisterInstance(_backboardBonusData).As<IBackboardBonusData>();
                 builder.RegisterInstance(_timerData).As<ITimerData>();
+                builder.RegisterInstance(_shotResultData).As<IShotResultData>();
 
             // Managers
                 builder.Register<GameManager>(Lifetime.Singleton).AsImplementedInterfaces();
@@ -107,6 +110,7 @@ namespace Assets.Scripts.Runtime.Bootstrap
                 builder.Register<TimerUIModel>(Lifetime.Singleton).As<ITimerUIModel>();
                 builder.Register<TimerUIPresenter>(Lifetime.Singleton).AsImplementedInterfaces();
 
+                builder.RegisterComponentInHierarchy<InputBarController>().As<IInputBarController>();
             // Input Handlers
                 builder.Register<Gameplay_PlayingInputHandler>(Lifetime.Singleton).As<IPlayingInputHandler>();
 

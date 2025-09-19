@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a825889a152e24343971b90af46eabb6, type: 3}
+  m_Name: DefaultShotResultData
+  m_EditorClassIdentifier: 
+  _shotResultRanges:
+  - MinPower: 0.5
+    MaxPower: 0.6
+    Result: 2
+  - MinPower: 0.6
+    MaxPower: 0.75
+    Result: 0
+  - MinPower: 0.75
+    MaxPower: 0.8
+    Result: 2
+  - MinPower: 0.85
+    MaxPower: 0.95
+    Result: 1
+  - MinPower: 0.95
+    MaxPower: 1
+    Result: 4

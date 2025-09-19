@@ -3,7 +3,9 @@ using Assets.Scripts.Runtime.Shared;
 using Assets.Scripts.Runtime.Shared.Constants;
 using Assets.Scripts.Runtime.Shared.EventBus.Events;
 using Assets.Scripts.Runtime.Shared.Interfaces;
+using Assets.Scripts.Runtime.Shared.Interfaces.Data;
 using Assets.Scripts.Runtime.Shared.Interfaces.Interactables;
+using Assets.Scripts.Runtime.Shared.Interfaces.UI;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UniRx;
@@ -15,6 +17,8 @@ namespace Assets.Scripts.Runtime.Managers
     {
         private readonly IGameplayInputManager _inputManager;
         private readonly IEventBus _eventBus;
+        private readonly IInputBarController _inputBarController;
+        private readonly IShotResultData _resultData;
 
         private IBallPresenter _ballPresenter;
         private CompositeDisposable _disposables;
@@ -26,9 +30,12 @@ namespace Assets.Scripts.Runtime.Managers
         private bool _hasCalculated;
         private CancellationTokenSource _swipeCts;
 
-        public SwipeManager(IGameplayInputManager inputManager, IEventBus eventBus)
+        public SwipeManager(IGameplayInputManager inputManager, IShotResultData resultData,
+            IInputBarController inputBarController, IEventBus eventBus)
         {
             _inputManager = inputManager;
+            _resultData = resultData;
+            _inputBarController = inputBarController;
             _eventBus = eventBus;
         }
 
@@ -42,7 +49,14 @@ namespace Assets.Scripts.Runtime.Managers
 
             _disposables = new();
 
+            _inputBarController.SetZonePosition(_resultData);
+
             _isInitialized = true;
+        }
+
+        public void ShowInputBar(bool show)
+        {
+            _inputBarController.EnableInputBar(show);
         }
 
         public void StartSwipeTracking(IBallPresenter ballPresenter)
@@ -78,8 +92,15 @@ namespace Assets.Scripts.Runtime.Managers
                 float currentTime = Time.time;
                 float deltaTime = currentTime - lastMoveTime;
 
-                float currentSpeed = deltaMove.magnitude / deltaTime;
+                // Calcular poder atual em tempo real
+                Vector2 totalDelta = _currentPosition - _startPosition;
+                float upwardDistance = Mathf.Max(0, totalDelta.y);
+                float currentPower = Mathf.Clamp01(upwardDistance / GameConstants.MaxSwipeDistance) * 100f;
 
+                // Atualizar barra de força
+                _inputBarController.SetPower(currentPower);
+
+                float currentSpeed = deltaMove.magnitude / deltaTime;
                 bool isMovingUp = deltaMove.y > 0;
                 bool isMovingFastEnough = currentSpeed >= GameConstants.MinSwipeSpeed;
                 bool withinTimeWindow = (currentTime - _startTime) <= GameConstants.SwipeTimeWindow;
@@ -121,22 +142,24 @@ namespace Assets.Scripts.Runtime.Managers
 
         private ShotResultEnum SelectShotResult(float power)
         {
-            return power switch
+            var powerPercent = power / 100;
+
+            foreach (var range in _resultData.ShotResultRanges)
             {
-                >= 40f and <= 55f => ShotResultEnum.PerfectShot,
-                >= 70f and <= 85f => ShotResultEnum.BackboardBasket,
-                >= 30f and < 40f => ShotResultEnum.RingTouch,
-                > 55f and < 70f => ShotResultEnum.RingTouch,
-                < 30f => ShotResultEnum.MissWeak,
-                > 85f => ShotResultEnum.MissStrong,
-                _ => ShotResultEnum.MissWeak
-            };
+                if (powerPercent >= range.MinPower && powerPercent <= range.MaxPower)
+                {
+                    return range.Result;
+                }
+            }
+ 
+            return ShotResultEnum.MissWeak;
         }
 
         public void ResetSwipeTracking()
         {
             _isTracking = false;
             _hasCalculated = false;
+            _inputBarController.SetPower(0f);
         }
 
         protected override void OnDestroying()
